@@ -1,0 +1,186 @@
+<!-- hyperframes-registry-item: app-showcase -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=866, height=846" />
+    <title>app-showcase</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 866px;
+        height: 846px;
+        overflow: hidden;
+        background-color: #14c6d8;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-composition-id="app-showcase"
+      data-width="866"
+      data-height="846"
+      data-start="0"
+      data-duration="5.5"
+    >
+      <!-- Background -->
+      <div class="s3-bg" id="s3Bg"></div>
+      <div class="s3-bg-glow" id="s3BgGlow"></div>
+
+      <!-- Stage wrapper for ambient scale -->
+      <div class="s3-stage" id="s3Stage">
+
+        <!-- LEFT PHONE -->
+        <div class="s3-phone s3-phone-left" id="s3PhoneLeft">
+          <div class="iphone-frame">
+            <div class="iphone-island"></div>
+            <img class="screen-img" src="../1StepFlow_1.png" alt="" />
+          </div>
+        </div>
+
+        <!-- CENTER PHONE -->
+        <div class="s3-phone s3-phone-center" id="s3PhoneCenter">
+          <div class="iphone-frame">
+            <div class="iphone-island"></div>
+            <img class="screen-img" src="../1StepFlow_2.png" alt="" />
+          </div>
+        </div>
+
+        <!-- RIGHT PHONE -->
+        <div class="s3-phone s3-phone-right" id="s3PhoneRight">
+          <div class="iphone-frame">
+            <div class="iphone-island"></div>
+            <img class="screen-img" src="../1StepFlow_3.png" alt="" />
+          </div>
+        </div>
+
+      </div>
+
+      <style>
+        [data-composition-id="app-showcase"] {
+          position: relative;
+          width: 866px;
+          height: 846px;
+          overflow: hidden;
+        }
+
+        /* ── Background ── */
+        [data-composition-id="app-showcase"] .s3-bg {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to bottom, #14c6d8 0%, #1b7575 100%);
+        }
+        [data-composition-id="app-showcase"] .s3-bg-glow {
+          position: absolute;
+          width: 600px;
+          height: 600px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, transparent 70%);
+          border-radius: 50%;
+        }
+
+        /* ── Stage ── */
+        [data-composition-id="app-showcase"] .s3-stage {
+          position: absolute;
+          inset: 0;
+          transform-origin: center center;
+        }
+
+        /* ── Phones ── */
+        [data-composition-id="app-showcase"] .s3-phone {
+          position: absolute;
+          width: 290px;
+          height: 625px;
+          top: 110px;
+          left: 288px;
+        }
+        [data-composition-id="app-showcase"] .s3-phone-center { z-index: 30; }
+        [data-composition-id="app-showcase"] .s3-phone-left  { z-index: 20; }
+        [data-composition-id="app-showcase"] .s3-phone-right { z-index: 20; }
+
+        /* ── iPhone 16 Pro frame ── */
+        [data-composition-id="app-showcase"] .iphone-frame {
+          width: 100%;
+          height: 100%;
+          border-radius: 46px;
+          background: #2c2c2e;
+          padding: 6px;
+          box-shadow:
+            0 0 0 1px #48484a,
+            0 24px 60px rgba(0, 0, 0, 0.55),
+            0 6px 20px rgba(0, 0, 0, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+
+        /* ── Dynamic Island ── */
+        [data-composition-id="app-showcase"] .iphone-island {
+          position: absolute;
+          top: 14px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 90px;
+          height: 28px;
+          background: #000;
+          border-radius: 20px;
+          z-index: 5;
+        }
+
+        /* ── Screen image ── */
+        [data-composition-id="app-showcase"] .screen-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top center;
+          border-radius: 40px;
+          display: block;
+        }
+      </style>
+
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+      <script>
+        (function () {
+          var S = '[data-composition-id="app-showcase"] ';
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true });
+
+          // ── Initial states ──
+          gsap.set(S + ".s3-bg",         { opacity: 0 });
+          gsap.set(S + ".s3-bg-glow",    { opacity: 0 });
+          gsap.set(S + "#s3PhoneCenter", { opacity: 0, scale: 0.85 });
+          gsap.set(S + "#s3PhoneLeft",   { opacity: 0, x: 0, rotation: 0 });
+          gsap.set(S + "#s3PhoneRight",  { opacity: 0, x: 0, rotation: 0 });
+
+          // BUILD PHASE (0–2s)
+          tl.to(S + ".s3-bg",      { opacity: 1, duration: 0.8, ease: "power1.out" }, 0);
+          tl.to(S + ".s3-bg-glow", { opacity: 1, duration: 1.2, ease: "power1.out" }, 0.2);
+
+          tl.to(S + "#s3PhoneCenter", { scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 0.2);
+
+          tl.to(S + "#s3PhoneLeft", { opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 0.3);
+          tl.to(S + "#s3PhoneLeft", { x: -210, rotation: -12, duration: 1.2, ease: "expo.out" }, 0.3);
+
+          tl.to(S + "#s3PhoneRight", { opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 0.4);
+          tl.to(S + "#s3PhoneRight", { x: 210, rotation: 12, duration: 1.2, ease: "expo.out" }, 0.4);
+
+          // BREATHE PHASE (2–4s)
+          tl.to(S + "#s3Stage", { scale: 1.02, duration: 3.5, ease: "sine.inOut" }, 2.0);
+
+          // RESOLVE PHASE (4–5.5s)
+          tl.to(S + ".s3-bg-glow", { opacity: 0.5, duration: 0.6, ease: "sine.inOut" }, 4.0);
+          tl.to(S + ".s3-bg-glow", { opacity: 1.0, duration: 0.6, ease: "sine.inOut" }, 4.6);
+
+          window.__timelines["app-showcase"] = tl;
+        })();
+      </script>
+    </div>
+  </body>
+</html>

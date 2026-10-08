@@ -1,0 +1,502 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Libertinus Serif Display";
+  src: url("../public/fonts/LibertinusSerif_OTF/LibertinusSerifDisplay-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: var(--font-league-spartan), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Libertinus Serif Display", ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, monospace;
+
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+/* `clip` guards against stray horizontal overflow exactly like `hidden`, but
+   without turning body into a scroll container — which would capture every
+   `position: sticky` descendant (e.g. the PayPal DE equation). */
+html, body {
+  overflow-x: clip;
+}
+
+/*
+ * Running copy never closes on a lone word.
+ *
+ * `pretty` lets the browser rework the last few lines of a text block, pulling
+ * a word down so the closing line always has company. It is a layout rule
+ * rather than a set of hand-tuned widths, so it holds at every width — the
+ * ones between the breakpoints included.
+ *
+ * Deliberate breaks still win: a hard newline under `white-space: pre-line`
+ * and an explicit <br> are not break opportunities, so the two-line chart
+ * labels keep the shape they were written with. Headings are left alone: a
+ * title is a label, and a label is allowed to hang its last word.
+ *
+ * Layered under Tailwind's utilities so a `whitespace-nowrap` on the same
+ * element still wins — `text-wrap` and `white-space` share the underlying
+ * `text-wrap-mode` longhand, and unlayered CSS beats layered utilities
+ * regardless of selector specificity.
+ */
+@layer base {
+  p, li, blockquote, dd, dt, figcaption {
+    text-wrap: pretty;
+  }
+}
+
+/*
+ * Figure-over-label pairs (a percentage with its wording beneath it).
+ *
+ * A text box is taller than its ink: the display serif reserves ~12px of
+ * descender space under a row of digits, and the label reserves ~6px above its
+ * cap height, so a stated gap renders about 15px larger than it reads. Trimming
+ * the number's box to its baseline and the label's box to its cap height makes
+ * the gap measure ink-to-ink, so the value in the markup is the value on
+ * screen. The homepage panels sit at 14px; the case studies, whose figures are
+ * larger, sit at 17px.
+ *
+ * Browsers without `text-box` (Firefox) fall back to the untrimmed spacing.
+ */
+.metric-figure {
+  text-box: trim-end text alphabetic;
+}
+
+.metric-label {
+  text-box: trim-start cap text;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* A marquee is decoration, so it holds still for anyone who asks motion to. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none !important; }
+}
+
+/*
+ * Vertical room a desktop rollover panel has: from the lowest panel top (148px)
+ * down to the two-thirds line of the viewport. The panels hang from the nav
+ * band, so this is what lets them grow with the screen — each image sizes to it
+ * until it reaches its own pixel height (see panelSize in home-client.tsx),
+ * and nothing upscales past that.
+ *
+ * One band, not one per panel. The tops differ by up to 9px, and a shared
+ * height is what keeps the showreel from resizing its frame on every step; the
+ * higher-hung panels end that little short of the line rather than on it.
+ *
+ * The width is the same room measured across: the viewport less what the rest
+ * of the row takes at the 1280px reference — the nav column, the 350px copy
+ * column and its 40px gutter, the 69px right offset. Only the landscape crops
+ * (536x394) ever reach it. It holds them at that reference size on a 1280px
+ * screen however tall the screen is, so a tall, narrow window cannot push the
+ * copy column into the nav, and lets them grow with the width from there.
+ */
+:root {
+  --rollover-band: calc(100vh * 2 / 3 - 148px);
+  --rollover-width: calc(100vw - 744px);
+
+  /* Neutral day palette: pure white ground, grey inks. */
+  --day-bg: #ffffff;
+  --day-paper: #f6f6f6;
+  --day-edge: #ebebeb;
+  --day-ink: #090909;
+  --day-ink-2: #4a4a4a;
+  --day-ink-3: #808080;
+  --day-rule: #e2e2e2;
+  --day-blue: #0070e0;
+  --day-sun: #f2b705;
+  --day-terra: #c25b2b;
+  --day-chartreuse: #b4c615;
+  --day-bar-track: #ededed;
+  --day-bar-soft: #dbe0ae;
+}
+
+html,
+body,
+.theme-site {
+  transition: background-color 260ms ease, color 260ms ease;
+}
+
+html[data-theme="day"] body,
+html[data-theme="day"] .theme-site {
+  background-color: var(--day-bg) !important;
+  color: var(--day-ink) !important;
+}
+
+html[data-theme="day"] .theme-site .bg-black,
+html[data-theme="day"] .theme-site.bg-black {
+  background-color: var(--day-bg) !important;
+}
+
+html[data-theme="day"] .theme-site .text-white,
+html[data-theme="day"] .theme-site.text-white {
+  color: var(--day-ink) !important;
+}
+
+html[data-theme="day"] .theme-site .text-white\/90 { color: rgb(9 9 9 / 0.9) !important; }
+html[data-theme="day"] .theme-site .text-white\/85 { color: rgb(9 9 9 / 0.85) !important; }
+html[data-theme="day"] .theme-site .text-white\/80 { color: rgb(9 9 9 / 0.8) !important; }
+html[data-theme="day"] .theme-site .text-white\/75 { color: rgb(9 9 9 / 0.75) !important; }
+html[data-theme="day"] .theme-site .text-white\/70 { color: rgb(74 74 74 / 0.92) !important; }
+html[data-theme="day"] .theme-site .text-white\/60 { color: var(--day-ink-2) !important; }
+html[data-theme="day"] .theme-site .text-white\/55 { color: rgb(74 74 74 / 0.72) !important; }
+html[data-theme="day"] .theme-site .text-white\/50 { color: rgb(74 74 74 / 0.66) !important; }
+html[data-theme="day"] .theme-site .text-white\/45 { color: rgb(74 74 74 / 0.6) !important; }
+html[data-theme="day"] .theme-site .text-white\/40 { color: rgb(74 74 74 / 0.54) !important; }
+html[data-theme="day"] .theme-site .text-white\/35 { color: rgb(74 74 74 / 0.48) !important; }
+
+html[data-theme="day"] .theme-site .border-white,
+html[data-theme="day"] .theme-site .hover\:border-white:hover {
+  border-color: var(--day-ink) !important;
+}
+html[data-theme="day"] .theme-site .border-white\/30 { border-color: rgb(9 9 9 / 0.3) !important; }
+html[data-theme="day"] .theme-site .border-white\/20 { border-color: rgb(9 9 9 / 0.2) !important; }
+html[data-theme="day"] .theme-site .border-white\/15 { border-color: rgb(9 9 9 / 0.15) !important; }
+html[data-theme="day"] .theme-site .border-white\/12 { border-color: rgb(9 9 9 / 0.12) !important; }
+html[data-theme="day"] .theme-site .border-white\/10 { border-color: var(--day-rule) !important; }
+
+.screen-hairline {
+  --hairline-color: rgb(255 255 255 / 0.1);
+  filter:
+    drop-shadow(1px 0 0 var(--hairline-color))
+    drop-shadow(-1px 0 0 var(--hairline-color))
+    drop-shadow(0 1px 0 var(--hairline-color))
+    drop-shadow(0 -1px 0 var(--hairline-color));
+}
+html[data-theme="day"] .theme-site .screen-hairline { --hairline-color: var(--day-rule) !important; }
+
+html[data-theme="day"] .theme-site .bg-white\/25,
+html[data-theme="day"] .theme-site .bg-white\/15 { background-color: var(--day-rule) !important; }
+
+html[data-theme="day"] .theme-site .bg-white\/\[0\.04\],
+html[data-theme="day"] .theme-site .bg-white\/\[0\.03\],
+html[data-theme="day"] .theme-site .bg-white\/5,
+html[data-theme="day"] .theme-site .bg-white\/\[0\.08\] {
+  background-color: var(--day-paper) !important;
+}
+
+html[data-theme="day"] .theme-site .theme-pill {
+  border-color: var(--day-rule) !important;
+  background-color: var(--day-paper) !important;
+  color: var(--day-ink) !important;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.7);
+}
+
+html[data-theme="day"] .theme-site .theme-pill:hover {
+  border-color: var(--day-ink) !important;
+}
+
+/* Active nav pill. Placed after .theme-pill so it wins the day override. */
+.theme-pill-active {
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
+}
+html[data-theme="day"] .theme-site .theme-pill.theme-pill-active,
+html[data-theme="day"] .theme-site .theme-pill.theme-pill-active:hover {
+  background-color: var(--day-ink) !important;
+  color: #fff !important;
+  border-color: var(--day-ink) !important;
+}
+
+html[data-theme="day"] .theme-site .theme-day-paper {
+  background-color: var(--day-paper) !important;
+  box-shadow: inset 0 1px 0 var(--day-rule), inset 0 -1px 0 var(--day-rule);
+}
+
+/* Labels that sit directly over photography keep their dark-image contrast.
+   The bare color rule covers descendants with no explicit text-white class
+   (they inherit color instead), matching how -xl below already works. */
+html[data-theme="day"] .theme-site .theme-invariant-dark { color: #fff !important; }
+html[data-theme="day"] .theme-site .theme-invariant-dark .text-white { color: #fff !important; }
+html[data-theme="day"] .theme-site .theme-invariant-dark .text-white\/70 { color: rgb(255 255 255 / 0.7) !important; }
+html[data-theme="day"] .theme-site .theme-invariant-dark .text-white\/60 { color: rgb(255 255 255 / 0.6) !important; }
+html[data-theme="day"] .theme-site .theme-invariant-dark .border-white\/20 { border-color: rgb(255 255 255 / 0.2) !important; }
+html[data-theme="day"] .theme-site .theme-invariant-dark .border-white\/30 { border-color: rgb(255 255 255 / 0.3) !important; }
+
+/* Same treatment, but only past the breakpoint where the element in question
+   is actually pulled out of flow and laid over the photo (e.g. the Meta hero
+   stats, which sit in normal flow below the image until xl). */
+@media (min-width: 1280px) {
+  html[data-theme="day"] .theme-site .theme-invariant-dark-xl { color: #fff !important; }
+  html[data-theme="day"] .theme-site .theme-invariant-dark-xl .text-white\/60 { color: rgb(255 255 255 / 0.6) !important; }
+}
+
+/* Same idea, gated at md — for elements laid over a photo only from md up
+   (e.g. Ms. Sunshine's "Before" figcaption, which sits in normal flow below
+   the photo until md). */
+@media (min-width: 768px) {
+  html[data-theme="day"] .theme-site .theme-invariant-dark-md { color: #fff !important; }
+  html[data-theme="day"] .theme-site .theme-invariant-dark-md .text-white\/70 { color: rgb(255 255 255 / 0.7) !important; }
+  html[data-theme="day"] .theme-site .theme-invariant-dark-md .text-white\/60 { color: rgb(255 255 255 / 0.6) !important; }
+}
+
+/* The reveal-slider's divider and thumb border read as white/grey chrome
+   against the dark theme's black frame, but wash out against day-paper —
+   day mode swaps them for the same blue accent used in the presentation
+   deck (slide 6). Night mode is untouched. */
+html[data-theme="day"] .theme-site .bg-white\/60 { background-color: var(--day-blue) !important; }
+html[data-theme="day"] .theme-site [role="slider"].border-white\/30 { border-color: var(--day-blue) !important; }
+
+/* Case-study brand accents (Meta chartreuse, Ms. Sunshine teal) are tuned for
+   black. On the cream day ground they'd sit near-invisible, so day mode swaps
+   in a darker, desaturated tint of the same hue — same move §2.4 already makes
+   for the "Next Case Study" ticker accents, just carried far enough to clear
+   AAA (7:1) on `--day-bg`/`--day-paper`. */
+html[data-theme="day"] .theme-site .text-\[\#cef252\],
+html[data-theme="day"] .theme-site .text-\[\#CEF252\] {
+  color: #3c4a0b !important;
+}
+
+html[data-theme="day"] .theme-site .text-\[\#91dfdf\] {
+  color: #334e4e !important;
+}
+
+/* Impact-row bar charts (animated-impact-row.tsx): the three raw fill
+   colours are set by inline hex classes with no day equivalent, so day mode
+   never touched them. Swapped for the same track/baseline/gain palette the
+   presentation deck's own bar charts use. */
+html[data-theme="day"] .theme-site .bg-\[rgba\(217\,217\,217\,0\.2\)\] {
+  background-color: var(--day-bar-track) !important;
+}
+
+html[data-theme="day"] .theme-site .bg-\[\#230808\] {
+  background-color: var(--day-bar-soft) !important;
+}
+
+html[data-theme="day"] .theme-site .bg-\[\#cef252\] {
+  background-color: var(--day-chartreuse) !important;
+}
+
+/* Next Case Study ticker (next-case-study-ticker.tsx): its accent colour is
+   set via an inline style prop, which the class-based remaps above can't
+   reach. The component sets both variants as custom properties; day mode
+   just picks the darker one. */
+.next-case-study-ticker-text { color: var(--ticker-dark-color); }
+html[data-theme="day"] .theme-site .next-case-study-ticker-text {
+  color: var(--ticker-day-color) !important;
+}
+
+/* Logo-dot blue (contact-line.tsx), the Sutter concierge-panel teal
+   (PatientPortal/page.tsx), and the DoorDash concept-panel red
+   (DoorDashDashboard/page.tsx) read at 2.29:1, 2.56:1, and 3.31:1 on cream —
+   same darkening move as the brand accents above, applied through the CSS
+   vars their inline styles already read. Logo-dot blue is the PayPal
+   skyBlue iPhone finish (#7DA8D2) lightened and pushed to full saturation
+   so it still reads as clearly blue against cream. */
+html[data-theme="day"] .theme-site {
+  --logo-dot-blue: #2b8cee;
+  --sutter-accent: #085f5c;
+  --doordash-accent: #be2406;
+}
+
+/* Behind-the-work process diagram (process-diagram.tsx). Each case study
+   passes the colour its Next Case Study ticker takes, night and day, through
+   the same pair of custom properties; this just picks the one for the theme. */
+.process-diagram {
+  --pd-accent: var(--pd-accent-dark);
+  --pd-bg: #000;
+}
+
+html[data-theme="day"] .theme-site .process-diagram {
+  --pd-accent: var(--pd-accent-day);
+  --pd-bg: var(--day-bg);
+}
+
+/* Meta eligibility workflow (app/work/meta/workflow-diagram.tsx). At night
+   the upstream checks sit on the white ramp and the approved path takes the
+   page's chartreuse. Day recedes the checks onto the day inks and gives
+   the path the same blue the reveal slider takes on paper. The shape fill
+   is a faint radial lift at night and a faint edge shadow on paper. */
+.mi-workflow-diagram {
+  --mi-check: rgb(255 255 255 / 0.5);
+  --mi-check-text: rgb(255 255 255 / 0.85);
+  --mi-path: #cef252;
+  --mi-fill-in: rgb(255 255 255 / 0.07);
+  --mi-fill-out: rgb(255 255 255 / 0.02);
+}
+
+html[data-theme="day"] .theme-site .mi-workflow-diagram {
+  --mi-check: var(--day-ink-3);
+  --mi-check-text: var(--day-ink-2);
+  --mi-path: var(--day-blue);
+  --mi-fill-in: rgb(9 9 9 / 0);
+  --mi-fill-out: rgb(9 9 9 / 0.045);
+}
+
+html[data-theme="day"] .theme-logo {
+  filter: brightness(0);
+}
+
+html[data-theme="day"] .theme-background-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  background: rgb(255 255 255 / 0.78);
+}
+
+html[data-theme="day"] .theme-liquid-metal {
+  filter: invert(1) saturate(0);
+  opacity: 0.14;
+}
+
+/* The toggle sits in the shared 24px header rhythm immediately before the logo. */
+.theme-toggle {
+  display: grid;
+  flex: none;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid #00b0d8;
+  outline-offset: 4px;
+}
+
+.theme-toggle__track {
+  position: relative;
+  display: block;
+  width: 58px;
+  height: 34px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.34);
+  border-radius: 999px;
+  background: #262626;
+  color: rgb(255 255 255 / 0.72);
+  transition: border-color 220ms ease, background-color 220ms ease;
+}
+
+.theme-toggle__sun,
+.theme-toggle__moon {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+}
+
+.theme-toggle__sun { left: 10px; }
+.theme-toggle__moon { right: 10px; }
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fbf9f5;
+  box-shadow: 0 2px 7px rgb(0 0 0 / 0.32);
+  transition: transform 240ms cubic-bezier(0.2, 0.6, 0.2, 1), background-color 220ms ease;
+}
+
+html[data-theme="day"] .theme-toggle__track {
+  border-color: var(--day-rule);
+  background: var(--day-paper);
+  color: var(--day-ink-3);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.55);
+}
+
+html[data-theme="day"] .theme-toggle__sun { color: var(--day-terra); }
+html[data-theme="day"] .theme-toggle__thumb {
+  background: var(--day-sun);
+  box-shadow: 0 2px 7px rgb(74 74 74 / 0.24);
+  transform: translateX(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  .theme-site,
+  .theme-toggle__track,
+  .theme-toggle__thumb {
+    transition: none;
+  }
+}
+
+/* ── ClearPath: call to action and inquiry form ── */
+
+.cta-solid {
+  background-color: #fff;
+  color: #000;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.cta-solid:hover { background-color: #e6e6e6; }
+.cta-solid:active { transform: translateY(1px); }
+.cta-solid:focus-visible {
+  outline: 2px solid var(--logo-dot-blue, #00b0d8);
+  outline-offset: 3px;
+}
+html[data-theme="day"] .cta-solid {
+  background-color: var(--day-ink);
+  color: #fff;
+}
+html[data-theme="day"] .cta-solid:hover { background-color: #2b2b2b; }
+
+.contact-scrim {
+  background: rgb(0 0 0 / 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+html[data-theme="day"] .contact-scrim { background: rgb(9 9 9 / 0.28); }
+
+.contact-surface {
+  background-color: #0e0e0e;
+  border-color: rgb(255 255 255 / 0.12);
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.5);
+}
+html[data-theme="day"] .contact-surface {
+  background-color: #fff;
+  border-color: var(--day-rule);
+  box-shadow: 0 30px 80px rgb(9 9 9 / 0.16), 0 2px 6px rgb(9 9 9 / 0.06);
+}
+
+.contact-field {
+  background-color: transparent;
+  border-color: rgb(255 255 255 / 0.2);
+  color: #fff;
+}
+.contact-field::placeholder { color: rgb(255 255 255 / 0.35); }
+.contact-field:hover { border-color: rgb(255 255 255 / 0.36); }
+.contact-field:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgb(0 176 216 / 0.28);
+}
+.contact-field[aria-invalid="true"] { border-color: #ff8a7a; }
+
+html[data-theme="day"] .contact-field {
+  border-color: #cfcfcf;
+  color: var(--day-ink);
+}
+html[data-theme="day"] .contact-field::placeholder { color: #9a9a9a; }
+html[data-theme="day"] .contact-field:hover { border-color: #a8a8a8; }
+html[data-theme="day"] .contact-field:focus {
+  border-color: var(--day-ink);
+  box-shadow: 0 0 0 3px rgb(43 140 238 / 0.2);
+}
+html[data-theme="day"] .contact-field[aria-invalid="true"] { border-color: #b3261e; }
+
+.contact-error { color: #ff8a7a; }
+html[data-theme="day"] .contact-error { color: #b3261e; }
+
+.contact-check {
+  background-color: var(--logo-dot-blue, #00b0d8);
+  color: #000;
+}
+html[data-theme="day"] .contact-check { color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-solid { transition: none; }
+}

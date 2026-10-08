@@ -1,0 +1,12 @@
+node_modules
+dist
+out
+.DS_Store
+*.local
+.next
+.env*
+.vite/
+components/videos/.claude/
+.claude
+.vercel
+*.tsbuildinfo

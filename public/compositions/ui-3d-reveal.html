@@ -1,0 +1,285 @@
+<!-- hyperframes-registry-item: ui-3d-reveal -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1524, height=916" />
+    <title>ui-3d-reveal</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1524px;
+        height: 916px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-composition-id="ui-3d-reveal"
+      data-width="1524"
+      data-height="916"
+      data-start="0"
+      data-duration="13"
+    >
+
+      <!-- ── Background layers ── -->
+      <div class="bg-image" id="bgImage"></div>
+      <div class="bg-vignette" id="bgVignette"></div>
+      <div class="bg-glow" id="bgGlow"></div>
+      <div class="bg-dots" id="bgDots"></div>
+
+      <!-- ── Decorative structural elements ── -->
+      <div class="top-rule" id="topRule"></div>
+      <div class="corner corner-tl" id="cornerTl"></div>
+      <div class="corner corner-br" id="cornerBr"></div>
+
+      <!-- ── Stage: centres and holds the 3D panel ── -->
+      <div class="stage">
+
+        <!-- panelFlight: translates X/Y and handles opacity for fly-out -->
+        <div id="panelFlight">
+
+          <!-- panelZoom: scales for appear + zoom-in phases -->
+          <div id="panelZoom">
+
+            <!-- panelTilt: rotates in 3D for tilt + fly-out phases -->
+            <div id="panelTilt">
+
+              <!-- Visual frame -->
+              <div class="panel-frame">
+                <!-- Glare sweeps once on appear -->
+                <div class="panel-glare" id="panelGlare"></div>
+                <!-- The UI screenshot -->
+                <img
+                  class="screen-img"
+                  src="../images/Compention.png"
+                  alt=""
+                />
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /stage -->
+
+      <!-- ────────────────── STYLES ────────────────── -->
+      <style>
+        [data-composition-id="ui-3d-reveal"] {
+          position: relative;
+          width: 1524px;
+          height: 916px;
+          overflow: hidden;
+          font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .bg-image {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(160deg, #16c0d5 0%, #1a96a8 38%, #176e7a 72%, #0d3d45 100%);
+          opacity: 0;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .bg-vignette {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            ellipse 72% 68% at 50% 50%,
+            transparent 0%,
+            rgba(8, 22, 28, 0.52) 100%
+          );
+          opacity: 0;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .bg-glow {
+          position: absolute;
+          width: 820px;
+          height: 820px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: radial-gradient(
+            circle,
+            rgba(0, 210, 230, 0.22) 0%,
+            rgba(0, 180, 200, 0.08) 50%,
+            transparent 72%
+          );
+          border-radius: 50%;
+          opacity: 0;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .bg-dots {
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.14) 1px,
+            transparent 1px
+          );
+          background-size: 44px 44px;
+          opacity: 0;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .top-rule {
+          position: absolute;
+          top: 48px;
+          left: 64px;
+          right: 64px;
+          height: 1.5px;
+          background: rgba(0, 210, 230, 0.55);
+          transform-origin: left center;
+          opacity: 0;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .corner {
+          position: absolute;
+          width: 26px;
+          height: 26px;
+          opacity: 0;
+        }
+        [data-composition-id="ui-3d-reveal"] .corner-tl {
+          top: 38px;
+          left: 38px;
+          border-top: 2px solid rgba(0, 210, 230, 0.85);
+          border-left: 2px solid rgba(0, 210, 230, 0.85);
+        }
+        [data-composition-id="ui-3d-reveal"] .corner-br {
+          bottom: 38px;
+          right: 38px;
+          border-bottom: 2px solid rgba(0, 210, 230, 0.85);
+          border-right: 2px solid rgba(0, 210, 230, 0.85);
+        }
+
+        [data-composition-id="ui-3d-reveal"] .stage {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        [data-composition-id="ui-3d-reveal"] #panelFlight {
+          transform-style: preserve-3d;
+        }
+        [data-composition-id="ui-3d-reveal"] #panelZoom {
+          width: 820px;
+          height: 520px;
+          transform-style: preserve-3d;
+        }
+        [data-composition-id="ui-3d-reveal"] #panelTilt {
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .panel-frame {
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+          overflow: hidden;
+          background: #0d1117;
+          border: 1.5px solid rgba(0, 210, 230, 0.42);
+          box-shadow:
+            0 0 0 1px rgba(255, 255, 255, 0.05),
+            0 50px 120px rgba(0, 0, 0, 0.7),
+            0 12px 36px rgba(0, 0, 0, 0.45),
+            0 0 80px rgba(0, 210, 230, 0.14);
+          position: relative;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .panel-glare {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            118deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.10) 38%,
+            rgba(255, 255, 255, 0.22) 50%,
+            rgba(255, 255, 255, 0.07) 62%,
+            transparent 100%
+          );
+          z-index: 10;
+          pointer-events: none;
+        }
+
+        [data-composition-id="ui-3d-reveal"] .screen-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top left;
+          display: block;
+        }
+      </style>
+
+      <!-- ────────────────── ANIMATION ────────────────── -->
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+      <script>
+        (function () {
+          var S = '[data-composition-id="ui-3d-reveal"] ';
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true, repeat: -1 });
+
+          gsap.set(S + '#panelTilt', { transformPerspective: 1600 });
+
+          // BACKGROUND BUILD (0.1 – 1.6s)
+          tl.fromTo(S + '.bg-image',
+            { opacity: 0 }, { opacity: 1, duration: 0.9, ease: 'power1.out' }, 0.1);
+          tl.fromTo(S + '.bg-vignette',
+            { opacity: 0 }, { opacity: 1, duration: 1.4, ease: 'power1.out' }, 0.1);
+          tl.fromTo(S + '.bg-glow',
+            { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1.0, duration: 1.3, ease: 'power2.out' }, 0.2);
+          tl.fromTo(S + '.bg-dots',
+            { opacity: 0 }, { opacity: 1, duration: 1.6, ease: 'power1.out' }, 0.4);
+
+          // DECORATIVES
+          tl.fromTo(S + '#topRule',
+            { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.85, ease: 'expo.out' }, 0.35);
+          tl.fromTo(S + '#cornerTl',
+            { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.7)' }, 0.5);
+          tl.fromTo(S + '#cornerBr',
+            { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.7)' }, 0.65);
+
+          // PHASE 1 — APPEAR (0.5 – 2.1s)
+          tl.fromTo(S + '#panelFlight',
+            { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' }, 0.5);
+          tl.fromTo(S + '#panelZoom',
+            { scale: 0.42 }, { scale: 1.0, duration: 1.6, ease: 'expo.out' }, 0.5);
+          tl.fromTo(S + '#panelGlare',
+            { xPercent: -120 }, { xPercent: 220, duration: 0.85, ease: 'power1.inOut' }, 1.4);
+
+          // PHASE 2 — ZOOM IN (2.1 – 6.0s)
+          tl.to(S + '#panelZoom',
+            { scale: 1.58, duration: 3.9, ease: 'power1.inOut' }, 2.1);
+          tl.to(S + '.bg-glow',
+            { scale: 1.18, duration: 3.8, ease: 'sine.inOut' }, 2.2);
+          tl.to(S + '.bg-dots',
+            { x: 22, y: 12, duration: 6.0, ease: 'sine.inOut' }, 2.0);
+
+          // PHASE 3 — TILT LEFT (6.0 – 6.7s)
+          tl.fromTo(S + '#panelTilt',
+            { rotationY: 0, rotationZ: 0 },
+            { rotationY: -38, rotationZ: -4, duration: 0.7, ease: 'power2.inOut' }, 6.0);
+
+          // PHASE 4 — FLY OUT (6.7 – 7.5s)
+          tl.to(S + '#panelTilt',
+            { rotationY: -64, rotationZ: -9, duration: 0.8, ease: 'power3.in' }, 6.7);
+          tl.to(S + '#panelFlight',
+            { x: -560, y: -270, opacity: 0, duration: 0.8, ease: 'power3.in' }, 6.7);
+
+          // Decoratives exit
+          tl.to(S + '#topRule',     { opacity: 0, duration: 0.25, ease: 'power2.in' }, 6.7);
+          tl.to(S + '#cornerTl',    { opacity: 0, duration: 0.2,  ease: 'power2.in' }, 6.75);
+          tl.to(S + '#cornerBr',    { opacity: 0, duration: 0.2,  ease: 'power2.in' }, 6.8);
+          tl.to(S + '.bg-glow',     { opacity: 0, duration: 0.8,  ease: 'power2.in' }, 6.7);
+          tl.to(S + '.bg-dots',     { opacity: 0, duration: 0.7,  ease: 'power2.in' }, 6.7);
+          tl.to(S + '.bg-vignette', { opacity: 0.6, duration: 0.8, ease: 'power2.in' }, 6.7);
+
+          window.__timelines['ui-3d-reveal'] = tl;
+          tl.play();
+        })();
+      </script>
+
+    </div>
+  </body>
+</html>

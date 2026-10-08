@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>App Showcase</title>
+</head>
+<body>
+  <div data-composition-id="root" data-start="0" data-width="866" data-height="846">
+
+    <div id="el-showcase"
+      data-composition-id="app-showcase"
+      data-composition-src="compositions/app-showcase.html"
+      data-start="0"
+      data-duration="5.5"
+      data-track-index="1"
+      data-width="866"
+      data-height="846">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["root"] = tl;
+    </script>
+  </div>
+</body>
+</html>
