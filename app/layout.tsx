@@ -3,6 +3,7 @@ import { League_Spartan, JetBrains_Mono, PT_Serif } from "next/font/google";
 import "./globals.css";
 import { ContactProvider } from "@/components/ui/contact-modal";
 import { CLEARPATH } from "@/lib/content";
+import { withBasePath } from "@/lib/base-path";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -56,6 +57,18 @@ export const metadata: Metadata = {
   description: CLEARPATH.description,
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
+  // Follows the browser's own light/dark chrome, not the site toggle: the blue
+  // mark's black half disappears on a dark tab bar, so dark tabs get the white one.
+  icons: {
+    icon: [
+      { url: withBasePath("/icons/favicon-blue.ico"), sizes: "any", media: "(prefers-color-scheme: light)" },
+      { url: withBasePath("/icons/favicon-dark.ico"), sizes: "any", media: "(prefers-color-scheme: dark)" },
+      { url: withBasePath("/icons/clearpath-favicon-blue-32.png"), type: "image/png", sizes: "32x32", media: "(prefers-color-scheme: light)" },
+      { url: withBasePath("/icons/clearpath-favicon-dark-32.png"), type: "image/png", sizes: "32x32", media: "(prefers-color-scheme: dark)" },
+    ],
+    // iOS fills the transparent corners with black, so the white version reads.
+    apple: withBasePath("/icons/apple-touch-icon-dark.png"),
+  },
   openGraph: {
     type: "website",
     url: CLEARPATH.url,

@@ -125,6 +125,10 @@ body,
   transition: background-color 260ms ease, color 260ms ease;
 }
 
+.logo-day { display: none; }
+html[data-theme="day"] .logo-day { display: block; }
+html[data-theme="day"] .logo-dark { display: none; }
+
 html[data-theme="day"] body,
 html[data-theme="day"] .theme-site {
   background-color: var(--day-bg) !important;
