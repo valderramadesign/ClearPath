@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
-// Served from https://valderramadesign.github.io/ClearPath/ until ClearPath has its own domain.
-const basePath = "/ClearPath";
+// GitHub Pages serves the site from /ClearPath/. Vercel, which sets VERCEL=1 at
+// build time, serves it from the root.
+const basePath = process.env.VERCEL ? "" : "/ClearPath";
 
 const nextConfig: NextConfig = {
   output: "export",
