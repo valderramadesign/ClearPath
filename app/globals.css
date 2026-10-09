@@ -359,10 +359,7 @@ html[data-theme="day"] .theme-liquid-metal {
 .home-hero-bg {
   --hero-scrim: 0 0 0;
   background-color: #000;
-  background-image: image-set(
-    url("../components/images/Home_background/clearpath-hero-dark-native.png") 1x,
-    url("../components/images/Home_background/clearpath-hero-dark.png") 2x
-  );
+  background-image: url("../components/images/Home_background/clearpath-hero-dark-native.png");
   background-size: cover;
   background-position: 64% center;
   background-repeat: no-repeat;
@@ -394,10 +391,19 @@ html[data-theme="day"] .theme-liquid-metal {
 html[data-theme="day"] .home-hero-bg {
   --hero-scrim: 255 255 255;
   background-color: var(--day-bg);
-  background-image: image-set(
-    url("../components/images/Home_background/clearpath-hero-light-native.png") 1x,
-    url("../components/images/Home_background/clearpath-hero-light.png") 2x
-  );
+  background-image: url("../components/images/Home_background/clearpath-hero-light-native.png");
+}
+
+/* Sharper photos for high-density screens. A plain media query, because
+   Next's production CSS build breaks on image-set(). */
+@media (min-resolution: 2dppx) {
+  .home-hero-bg {
+    background-image: url("../components/images/Home_background/clearpath-hero-dark.png");
+  }
+
+  html[data-theme="day"] .home-hero-bg {
+    background-image: url("../components/images/Home_background/clearpath-hero-light.png");
+  }
 }
 
 /* Services hero art. Both images already fade to the page colour on the
