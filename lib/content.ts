@@ -763,9 +763,9 @@ export const CLEARPATH = {
   cta: "Discuss your process challenge",
   home: {
     headline: [
-      "Simplify your processes.",
-      "Automate repetitive work.",
-      "Move your business forward.",
+      "Simplify.",
+      "Automate.",
+      "Move forward.",
     ],
     supporting:
       "We help growing companies reduce manual work across planning, reporting, and operations. From identifying the problem to implementing the solution, we make business improvement practical and measurable.",
