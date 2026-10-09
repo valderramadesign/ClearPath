@@ -37,13 +37,7 @@ const siteTitle = `${CLEARPATH.name} — Process improvement and automation`;
 const themeInitializer = `
   try {
     var savedTheme = localStorage.getItem("tim-v-theme");
-    var theme;
-    if (savedTheme === "day" || savedTheme === "dark") {
-      theme = savedTheme;
-    } else {
-      var hour = new Date().getHours();
-      theme = hour >= 9 && hour < 17 ? "day" : "dark";
-    }
+    var theme = savedTheme === "day" ? "day" : "dark";
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme === "day" ? "light" : "dark";
   } catch (_) {
