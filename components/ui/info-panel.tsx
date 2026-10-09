@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import ContactCta from "@/components/ui/contact-cta";
 import { PANEL_LABELS, type Panel } from "@/components/layout/header";
 import { CLEARPATH } from "@/lib/content";
 
@@ -90,13 +89,6 @@ export default function InfoPanel({ panel, onClose }: { panel: Panel; onClose: (
             </h2>
 
             <About />
-
-            <section className="mt-20 flex flex-col items-start gap-7 @[680px]:mt-24">
-              <p className="max-w-[18ch] font-serif text-white text-[clamp(34px,5.2cqw,56px)] leading-[1] tracking-[-0.015em]">
-                {CLEARPATH.contact.headline}
-              </p>
-              <ContactCta />
-            </section>
           </motion.article>
         </AnimatePresence>
       </div>
