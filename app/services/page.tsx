@@ -18,7 +18,7 @@ const EYEBROW = "text-white/60 text-[12px] uppercase tracking-[0.18em] font-sans
 export default function ServicesPage() {
   const { intro, items } = CLEARPATH.services;
   return (
-    <div className="theme-site min-h-[100svh] bg-black text-white">
+    <div className="theme-site min-h-[100svh] overflow-clip bg-black text-white">
       <div className="hidden lg:block p-[24px]">
         <Header current="services" />
       </div>
@@ -34,7 +34,8 @@ export default function ServicesPage() {
         </nav>
       </div>
 
-      <main className="@container px-5 pb-[clamp(72px,14vh,148px)] sm:px-6 lg:px-[24px]">
+      {/* Bottom padding is 35% of the old gap to the footer copy, less the footer's own 32px top padding. */}
+      <main className="@container px-5 pb-[clamp(4px,calc(4.9vh_-_21px),31px)] sm:px-6 lg:px-[24px]">
         <div className="relative isolate pt-[clamp(64px,14vh,140px)]">
           {/* Day and night images swap in CSS (globals.css), so only the active one downloads. */}
           <div
@@ -70,15 +71,28 @@ export default function ServicesPage() {
           ))}
         </ol>
 
-        <section className="mt-20 flex flex-col items-start gap-7 @[760px]:mt-28">
-          <p className="max-w-[18ch] font-serif text-white text-[clamp(34px,5.2cqw,64px)] leading-[1] tracking-[-0.015em]">
-            {CLEARPATH.contact.headline}
-          </p>
-          <ContactCta />
-        </section>
+        {/* Starts on the last row's rule. The art is shown whole at its 3:2 size and
+            runs on behind the footer. The mask softens the right and bottom edges
+            into the page; it is written before the mirror, so "to right" fades the
+            displayed right edge. */}
+        <div className="relative pt-10 @[760px]:pt-14">
+          <div
+            aria-hidden
+            className="services-hero-bg pointer-events-none absolute top-0 -left-5 aspect-[3/2] w-[calc(100%+20px)] -scale-x-100 opacity-40 [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,#000_14%),linear-gradient(to_top,transparent,#000_14%)] sm:-left-6 sm:w-[calc(100%+24px)] lg:-left-[24px] lg:w-[62%] lg:opacity-100"
+          />
+
+          <section className="relative grid items-center lg:grid-cols-2">
+            <div className="flex flex-col items-start gap-7 lg:col-start-2">
+              <p className="max-w-[18ch] font-serif text-white text-[clamp(34px,5.2cqw,64px)] leading-[1] tracking-[-0.015em]">
+                {CLEARPATH.contact.headline}
+              </p>
+              <ContactCta />
+            </div>
+          </section>
+        </div>
       </main>
 
-      <Footer />
+      <Footer overArt />
     </div>
   );
 }

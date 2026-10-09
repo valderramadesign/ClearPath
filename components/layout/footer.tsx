@@ -3,9 +3,12 @@ import ContactLine from "@/components/ui/contact-line";
 import Logo from "@/components/ui/logo";
 import { CLEARPATH } from "@/lib/content";
 
-export default function Footer() {
+/** `overArt` drops the ground and rule so a page's background art shows through. */
+export default function Footer({ overArt = false }: { overArt?: boolean }) {
   return (
-    <footer className="relative z-10 bg-black border-t border-white/10 px-5 pt-8 pb-[max(32px,env(safe-area-inset-bottom))] sm:px-6 lg:px-[24px]">
+    <footer
+      className={`relative z-10 ${overArt ? "" : "bg-black border-t border-white/10 "}px-5 pt-8 pb-[max(32px,env(safe-area-inset-bottom))] sm:px-6 lg:px-[24px]`}
+    >
       <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex flex-col gap-3">
           <Logo />

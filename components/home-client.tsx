@@ -191,17 +191,20 @@ export default function HomeClient() {
             <div className="flex-1 min-h-[40px]" />
 
             <section aria-labelledby="hero-title" className="pb-[14px]">
-              <Headline
-                id="hero-title"
-                className="text-white font-serif leading-[0.95] tracking-[-0.02em]"
-                style={{ fontSize: "clamp(40px, min(7.6cqw, 11.5vh), 116px)" }}
-              />
-              <FadeIn delay={0.55} className="mt-[30px] flex flex-col items-start gap-[30px]">
-                <p className="max-w-[46ch] text-white font-light font-sans text-[clamp(20px,1.9cqw,24px)] leading-[1.32] tracking-[-0.015em]">
-                  {CLEARPATH.home.supporting}
-                </p>
-                <ContactCta />
-              </FadeIn>
+              {/* w-fit sizes to the headline; the copy's w-0 min-w-full fills that width without widening it. */}
+              <div className="w-fit">
+                <Headline
+                  id="hero-title"
+                  className="text-white font-serif leading-[0.95] tracking-[-0.02em]"
+                  style={{ fontSize: "clamp(40px, min(7.6cqw, 11.5vh), 116px)" }}
+                />
+                <FadeIn delay={0.55} className="mt-[30px] flex flex-col items-start gap-[30px]">
+                  <p className="w-0 min-w-full text-white font-light font-sans text-[clamp(20px,1.9cqw,24px)] leading-[1.32] tracking-[-0.015em]">
+                    {CLEARPATH.home.supporting}
+                  </p>
+                  <ContactCta />
+                </FadeIn>
+              </div>
               <FadeIn delay={0.7}>
                 <Expertise className="mt-[30px] pt-[20px] border-t border-white/10" />
               </FadeIn>
@@ -224,17 +227,19 @@ export default function HomeClient() {
             <div className="flex-1 min-h-[64px]" />
 
             <section aria-labelledby="hero-title-mobile" className="flex flex-col">
-              <Headline
-                id="hero-title-mobile"
-                className="text-white font-serif leading-[0.95] tracking-[-0.02em]"
-                style={{ fontSize: "clamp(42px, 12.4vw, 84px)" }}
-              />
-              <FadeIn delay={0.55}>
-                <p className="mt-6 max-w-[34ch] text-white font-light font-sans text-xl leading-[1.35] tracking-[-0.015em] sm:text-2xl">
-                  {CLEARPATH.home.supporting}
-                </p>
-                <ContactCta className="mt-8" />
-              </FadeIn>
+              <div className="w-fit">
+                <Headline
+                  id="hero-title-mobile"
+                  className="text-white font-serif leading-[0.95] tracking-[-0.02em]"
+                  style={{ fontSize: "clamp(42px, 12.4vw, 84px)" }}
+                />
+                <FadeIn delay={0.55}>
+                  <p className="mt-6 w-0 min-w-full text-white font-light font-sans text-xl leading-[1.35] tracking-[-0.015em] sm:text-2xl">
+                    {CLEARPATH.home.supporting}
+                  </p>
+                  <ContactCta className="mt-8" />
+                </FadeIn>
+              </div>
               <FadeIn delay={0.7}>
                 <Expertise className="mt-9 pt-5 border-t border-white/10 gap-x-5" />
               </FadeIn>
