@@ -419,6 +419,38 @@ html[data-theme="day"] .services-hero-bg {
   background-image: url("../components/images/Service Background/services-bg-light.png");
 }
 
+/* Sticky page chrome. Clear over the hero; once the page scrolls, a frosted
+   backing fades in behind it so the pills and email stay legible over copy.
+   The backing is a pseudo-element so it can fade without touching the bar. */
+.sticky-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: rgb(0 0 0 / 0.72);
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.sticky-header[data-scrolled]::before {
+  opacity: 1;
+}
+
+html[data-theme="day"] .sticky-header::before {
+  background-color: rgb(255 255 255 / 0.78);
+  border-bottom-color: var(--day-rule);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-header::before {
+    transition: none;
+  }
+}
+
 /* The toggle sits in the shared 24px header rhythm immediately before the logo. */
 .theme-toggle {
   display: grid;

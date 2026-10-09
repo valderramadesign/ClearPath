@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header, { PrimaryNav } from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import StickyHeader from "@/components/layout/sticky-header";
 import ContactCta from "@/components/ui/contact-cta";
 import Logo from "@/components/ui/logo";
 import ThemeToggle from "@/components/ui/theme-toggle";
@@ -19,20 +20,20 @@ export default function ServicesPage() {
   const { intro, items } = CLEARPATH.services;
   return (
     <div className="theme-site min-h-[100svh] overflow-clip bg-black text-white">
-      <div className="hidden lg:block p-[24px]">
-        <Header current="services" />
-      </div>
-      <div className="lg:hidden px-5 pt-5 sm:px-6 sm:pt-6">
-        <header className="flex items-center justify-between">
+      <StickyHeader>
+        <div className="hidden lg:block p-[24px]">
+          <Header current="services" />
+        </div>
+        <header className="lg:hidden flex items-center justify-between px-5 py-5 sm:px-6 sm:pt-6">
           <Link href="/" aria-label={`${CLEARPATH.name} home`}>
             <Logo />
           </Link>
           <ThemeToggle />
         </header>
-        <nav aria-label="Primary" className="mt-5 flex items-center gap-2">
-          <PrimaryNav current="services" />
-        </nav>
-      </div>
+      </StickyHeader>
+      <nav aria-label="Primary" className="lg:hidden flex items-center gap-2 px-5 sm:px-6">
+        <PrimaryNav current="services" />
+      </nav>
 
       {/* Bottom padding is 35% of the old gap to the footer copy, less the footer's own 32px top padding. */}
       <main className="@container px-5 pb-[clamp(4px,calc(4.9vh_-_21px),31px)] sm:px-6 lg:px-[24px]">

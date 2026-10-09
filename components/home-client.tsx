@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Header, { PANEL_LABELS, PrimaryNav, type Panel } from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import StickyHeader from "@/components/layout/sticky-header";
 import LeftNav from "@/components/layout/left-nav";
 import InfoPanel from "@/components/ui/info-panel";
 import ContactCta from "@/components/ui/contact-cta";
@@ -176,14 +177,24 @@ export default function HomeClient() {
       </AnimatePresence>
 
       <div className="relative flex-1 min-w-0">
+        {/* Pinned over the column; the negative margin lets the hero photo run
+            up behind it, and each hero reserves the same height as top padding. */}
+        <StickyHeader className="-mb-[74px] sm:-mb-[78px] lg:-mb-[87px]">
+          <div className="hidden lg:block p-[24px]">
+            <Header panel={panel} onPanel={togglePanel} />
+          </div>
+          <header className="lg:hidden flex items-center justify-between px-5 py-5 sm:px-6 sm:pt-6">
+            <Logo />
+            <ThemeToggle />
+          </header>
+        </StickyHeader>
+
         <div className="relative">
           {/* Day and night photos swap in CSS (globals.css), so only the active one downloads. */}
           <div aria-hidden="true" className="home-hero-bg absolute inset-0" />
 
           {/* ── Desktop hero ── */}
-          <main className="@container relative z-10 hidden lg:flex flex-col min-h-screen p-[24px]">
-            <Header panel={panel} onPanel={togglePanel} />
-
+          <main className="@container relative z-10 hidden lg:flex flex-col min-h-screen px-[24px] pt-[63px] pb-[24px]">
             <div className="mt-[clamp(32px,calc(18vh_-_120px),140px)]">
               <LeftNav />
             </div>
@@ -212,12 +223,8 @@ export default function HomeClient() {
           </main>
 
           {/* ── Mobile + tablet hero ── */}
-          <div className="lg:hidden relative z-10 flex min-h-[100svh] flex-col px-5 pt-5 pb-10 sm:px-6 sm:pt-6">
-            <header className="flex items-center justify-between">
-              <Logo />
-              <ThemeToggle />
-            </header>
-            <nav aria-label="Primary" className="mt-5 flex items-center gap-2">
+          <div className="lg:hidden relative z-10 flex min-h-[100svh] flex-col px-5 pt-[74px] pb-10 sm:px-6 sm:pt-[78px]">
+            <nav aria-label="Primary" className="flex items-center gap-2">
               <PrimaryNav panel={panel} onPanel={togglePanel} />
             </nav>
             <div className="mt-10">
