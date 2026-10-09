@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import LiquidMetalBackground from "@/components/ui/liquid-metal-background";
 import Header, { PANEL_LABELS, PrimaryNav, type Panel } from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import LeftNav from "@/components/layout/left-nav";
@@ -156,8 +155,6 @@ export default function HomeClient() {
 
   return (
     <div className="theme-site flex min-h-[100svh] flex-row bg-black text-white overflow-x-clip">
-      <LiquidMetalBackground />
-
       {/* Desktop panel — slides in from the left and squeezes the homepage */}
       <AnimatePresence initial={false}>
         {desktop && panel && (
@@ -179,65 +176,70 @@ export default function HomeClient() {
       </AnimatePresence>
 
       <div className="relative flex-1 min-w-0">
-        {/* ── Desktop hero ── */}
-        <main className="@container relative z-10 hidden lg:flex flex-col min-h-screen p-[24px]">
-          <Header panel={panel} onPanel={togglePanel} />
+        <div className="relative">
+          {/* Day and night photos swap in CSS (globals.css), so only the active one downloads. */}
+          <div aria-hidden="true" className="home-hero-bg absolute inset-0" />
 
-          <div className="mt-[clamp(32px,calc(18vh_-_120px),140px)]">
-            <LeftNav />
+          {/* ── Desktop hero ── */}
+          <main className="@container relative z-10 hidden lg:flex flex-col min-h-screen p-[24px]">
+            <Header panel={panel} onPanel={togglePanel} />
+
+            <div className="mt-[clamp(32px,calc(18vh_-_120px),140px)]">
+              <LeftNav />
+            </div>
+
+            <div className="flex-1 min-h-[40px]" />
+
+            <section aria-labelledby="hero-title" className="pb-[14px]">
+              <Headline
+                id="hero-title"
+                className="text-white font-serif leading-[0.95] tracking-[-0.02em]"
+                style={{ fontSize: "clamp(40px, min(7.6cqw, 11.5vh), 116px)" }}
+              />
+              <FadeIn delay={0.55} className="mt-[30px] flex flex-col items-start gap-[30px]">
+                <p className="max-w-[46ch] text-white font-light font-sans text-[clamp(20px,1.9cqw,24px)] leading-[1.32] tracking-[-0.015em]">
+                  {CLEARPATH.home.supporting}
+                </p>
+                <ContactCta />
+              </FadeIn>
+              <FadeIn delay={0.7}>
+                <Expertise className="mt-[30px] pt-[20px] border-t border-white/10" />
+              </FadeIn>
+            </section>
+          </main>
+
+          {/* ── Mobile + tablet hero ── */}
+          <div className="lg:hidden relative z-10 flex min-h-[100svh] flex-col px-5 pt-5 pb-10 sm:px-6 sm:pt-6">
+            <header className="flex items-center justify-between">
+              <Logo />
+              <ThemeToggle />
+            </header>
+            <nav aria-label="Primary" className="mt-5 flex items-center gap-2">
+              <PrimaryNav panel={panel} onPanel={togglePanel} />
+            </nav>
+            <div className="mt-10">
+              <LeftNav />
+            </div>
+
+            <div className="flex-1 min-h-[64px]" />
+
+            <section aria-labelledby="hero-title-mobile" className="flex flex-col">
+              <Headline
+                id="hero-title-mobile"
+                className="text-white font-serif leading-[0.95] tracking-[-0.02em]"
+                style={{ fontSize: "clamp(42px, 12.4vw, 84px)" }}
+              />
+              <FadeIn delay={0.55}>
+                <p className="mt-6 max-w-[34ch] text-white font-light font-sans text-xl leading-[1.35] tracking-[-0.015em] sm:text-2xl">
+                  {CLEARPATH.home.supporting}
+                </p>
+                <ContactCta className="mt-8" />
+              </FadeIn>
+              <FadeIn delay={0.7}>
+                <Expertise className="mt-9 pt-5 border-t border-white/10 gap-x-5" />
+              </FadeIn>
+            </section>
           </div>
-
-          <div className="flex-1 min-h-[40px]" />
-
-          <section aria-labelledby="hero-title" className="pb-[14px]">
-            <Headline
-              id="hero-title"
-              className="text-white font-serif leading-[0.95] tracking-[-0.02em]"
-              style={{ fontSize: "clamp(40px, min(7.6cqw, 11.5vh), 116px)" }}
-            />
-            <FadeIn delay={0.55} className="mt-[30px] flex flex-col items-start gap-[30px]">
-              <p className="max-w-[46ch] text-white font-light font-sans text-[clamp(20px,1.9cqw,24px)] leading-[1.32] tracking-[-0.015em]">
-                {CLEARPATH.home.supporting}
-              </p>
-              <ContactCta />
-            </FadeIn>
-            <FadeIn delay={0.7}>
-              <Expertise className="mt-[30px] pt-[20px] border-t border-white/10" />
-            </FadeIn>
-          </section>
-        </main>
-
-        {/* ── Mobile + tablet hero ── */}
-        <div className="lg:hidden relative z-10 flex min-h-[100svh] flex-col px-5 pt-5 pb-10 sm:px-6 sm:pt-6">
-          <header className="flex items-center justify-between">
-            <Logo />
-            <ThemeToggle />
-          </header>
-          <nav aria-label="Primary" className="mt-5 flex items-center gap-2">
-            <PrimaryNav panel={panel} onPanel={togglePanel} />
-          </nav>
-          <div className="mt-10">
-            <LeftNav />
-          </div>
-
-          <div className="flex-1 min-h-[64px]" />
-
-          <section aria-labelledby="hero-title-mobile" className="flex flex-col">
-            <Headline
-              id="hero-title-mobile"
-              className="text-white font-serif leading-[0.95] tracking-[-0.02em]"
-              style={{ fontSize: "clamp(42px, 12.4vw, 84px)" }}
-            />
-            <FadeIn delay={0.55}>
-              <p className="mt-6 max-w-[34ch] text-white font-light font-sans text-xl leading-[1.35] tracking-[-0.015em] sm:text-2xl">
-                {CLEARPATH.home.supporting}
-              </p>
-              <ContactCta className="mt-8" />
-            </FadeIn>
-            <FadeIn delay={0.7}>
-              <Expertise className="mt-9 pt-5 border-t border-white/10 gap-x-5" />
-            </FadeIn>
-          </section>
         </div>
 
         <PromiseSection />

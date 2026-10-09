@@ -34,14 +34,22 @@ export default function ServicesPage() {
         </nav>
       </div>
 
-      <main className="@container px-5 pt-[clamp(64px,14vh,140px)] pb-[clamp(72px,14vh,148px)] sm:px-6 lg:px-[24px]">
-        <p className={EYEBROW}>{CLEARPATH.name}</p>
-        <h1 className="mt-5 font-serif text-[clamp(56px,10cqw,128px)] leading-[0.94] tracking-[-0.02em] text-white">
-          Services
-        </h1>
-        <p className="mt-8 max-w-[34ch] font-sans font-light text-white leading-[1.32] tracking-[-0.015em] text-[clamp(21px,2.4cqw,28px)]">
-          {intro}
-        </p>
+      <main className="@container px-5 pb-[clamp(72px,14vh,148px)] sm:px-6 lg:px-[24px]">
+        <div className="relative isolate pt-[clamp(64px,14vh,140px)]">
+          {/* Day and night images swap in CSS (globals.css), so only the active one downloads. */}
+          <div
+            aria-hidden
+            className="services-hero-bg pointer-events-none absolute inset-y-0 -right-5 -z-10 w-[calc(100%+20px)] opacity-40 [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,#000_45%),linear-gradient(to_bottom,#000_60%,transparent)] sm:-right-6 sm:w-[calc(100%+24px)] lg:-right-[24px] lg:w-[70%] lg:opacity-100"
+          />
+
+          <p className={EYEBROW}>{CLEARPATH.name}</p>
+          <h1 className="mt-5 font-serif text-[clamp(56px,10cqw,128px)] leading-[0.94] tracking-[-0.02em] text-white">
+            Services
+          </h1>
+          <p className="mt-8 max-w-[34ch] font-sans font-light text-white leading-[1.32] tracking-[-0.015em] text-[clamp(21px,2.4cqw,28px)]">
+            {intro}
+          </p>
+        </div>
 
         <ol className="mt-16 border-b border-white/15 @[760px]:mt-24">
           {items.map((item, index) => (

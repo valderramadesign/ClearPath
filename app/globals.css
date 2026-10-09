@@ -354,6 +354,65 @@ html[data-theme="day"] .theme-liquid-metal {
   opacity: 0.14;
 }
 
+/* Homepage hero photo. The scrim keeps the bottom-left copy legible and
+   fades the photo into the section below. */
+.home-hero-bg {
+  --hero-scrim: 0 0 0;
+  background-color: #000;
+  background-image: image-set(
+    url("../components/images/Home_background/clearpath-hero-dark-native.png") 1x,
+    url("../components/images/Home_background/clearpath-hero-dark.png") 2x
+  );
+  background-size: cover;
+  background-position: 64% center;
+  background-repeat: no-repeat;
+}
+
+.home-hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgb(var(--hero-scrim) / 1) 0%, rgb(var(--hero-scrim) / 0.55) 30%, rgb(var(--hero-scrim) / 0) 62%),
+    linear-gradient(to right, rgb(var(--hero-scrim) / 0.55) 0%, rgb(var(--hero-scrim) / 0) 55%);
+}
+
+/* The stacked hero is taller than the photo is wide, so the copy lands on the
+   people. A deeper fade gives it its own ground. */
+@media (max-width: 1023px) {
+  .home-hero-bg::after {
+    background: linear-gradient(
+      to top,
+      rgb(var(--hero-scrim) / 1) 0%,
+      rgb(var(--hero-scrim) / 0.85) 42%,
+      rgb(var(--hero-scrim) / 0.2) 72%,
+      rgb(var(--hero-scrim) / 0) 85%
+    );
+  }
+}
+
+html[data-theme="day"] .home-hero-bg {
+  --hero-scrim: 255 255 255;
+  background-color: var(--day-bg);
+  background-image: image-set(
+    url("../components/images/Home_background/clearpath-hero-light-native.png") 1x,
+    url("../components/images/Home_background/clearpath-hero-light.png") 2x
+  );
+}
+
+/* Services hero art. Both images already fade to the page colour on the
+   left and bottom edges. */
+.services-hero-bg {
+  background-image: url("../components/images/Service Background/services-bg-dark.png");
+  background-size: cover;
+  background-position: right 35%;
+  background-repeat: no-repeat;
+}
+
+html[data-theme="day"] .services-hero-bg {
+  background-image: url("../components/images/Service Background/services-bg-light.png");
+}
+
 /* The toggle sits in the shared 24px header rhythm immediately before the logo. */
 .theme-toggle {
   display: grid;
