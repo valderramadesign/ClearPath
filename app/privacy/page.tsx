@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import ContactLine from "@/components/ui/contact-line";
 import Logo from "@/components/ui/logo";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { CLEARPATH } from "@/lib/content";
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 const EYEBROW = "text-white/60 text-[12px] uppercase tracking-[0.18em] font-sans";
 const UPDATED = "October 2026";
 
-const SECTIONS: { title: string; body: React.ReactNode }[] = [
+const SECTIONS: { title: string; body: React.ReactNode; action?: React.ReactNode }[] = [
   {
     title: "What we collect",
     body: (
@@ -48,13 +49,11 @@ const SECTIONS: { title: string; body: React.ReactNode }[] = [
     title: "Your choices",
     body: (
       <p>
-        You can ask us to show, correct or delete the information you sent. Email{" "}
-        <a href={`mailto:${CLEARPATH.email}`} className="underline underline-offset-4 hover:opacity-70">
-          {CLEARPATH.email}
-        </a>{" "}
-        and we will reply.
+        You can ask us to show, correct or delete the information you sent. Use the Contact Us
+        button and we will reply.
       </p>
     ),
+    action: <ContactLine />,
   },
 ];
 
@@ -90,6 +89,7 @@ export default function PrivacyPage() {
               <h2 className={`${EYEBROW} pt-[6px]`}>{section.title}</h2>
               <div className="font-sans text-[17px] font-light leading-[1.6] text-white/80 sm:text-lg">
                 {section.body}
+                {section.action && <div className="mt-6">{section.action}</div>}
               </div>
             </section>
           ))}

@@ -19,7 +19,15 @@ import { CLEARPATH } from "@/lib/content";
 /* FormSubmit relays the JSON post to the inbox in the path. The first post
    sends that inbox an activation link, and nothing is delivered until it is
    clicked. */
-const ENDPOINT = `https://formsubmit.co/ajax/${CLEARPATH.email}`;
+const ENDPOINT = `https://formsubmit.co/ajax/${CLEARPATH.inquiryInbox}`;
+
+/* A send this soon after the form opens is a bot: nobody fills four fields in
+   under three seconds. It is shown as sent so the bot learns nothing. */
+const MIN_FILL_MS = 3000;
+
+/* FormSubmit drops inquiries containing any of these. Kept to words no real
+   process inquiry would use, since a match is discarded without notice. */
+const SPAM_WORDS = "backlinks,guest post,casino,viagra,cialis,escort,porn";
 
 type Field = "name" | "email" | "company" | "challenge";
 type Values = Record<Field, string>;
@@ -85,6 +93,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
   const [status, setStatus] = useState<Status>("idle");
   const dialog = useRef<HTMLDivElement | null>(null);
   const fields = useRef<Partial<Record<Field, HTMLInputElement | HTMLTextAreaElement | null>>>({});
+  const openedAt = useRef(0);
   const id = useId();
   const titleId = `${id}-title`;
   const bodyId = `${id}-body`;
@@ -92,6 +101,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    openedAt.current = Date.now();
     fields.current.name?.focus();
     return () => {
       document.body.style.overflow = previous;
@@ -122,6 +132,11 @@ function ContactModal({ onClose }: { onClose: () => void }) {
       return;
     }
 
+    if (Date.now() - openedAt.current < MIN_FILL_MS) {
+      setStatus("sent");
+      return;
+    }
+
     const honeypot = new FormData(event.currentTarget).get("_honey");
     setStatus("sending");
     try {
@@ -135,6 +150,8 @@ function ContactModal({ onClose }: { onClose: () => void }) {
           message: values.challenge.trim(),
           _subject: `ClearPath inquiry from ${values.name.trim()}, ${values.company.trim()}`,
           _replyto: values.email.trim(),
+          _cc: CLEARPATH.email,
+          _blacklist: SPAM_WORDS,
           _template: "table",
           _honey: honeypot ?? "",
         }),
@@ -343,11 +360,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
             {status === "failed" && (
               <p role="alert" className="contact-error mt-6 text-sm font-sans leading-snug">
-                We couldn’t send your inquiry. Please try again, or email us at{" "}
-                <a href={`mailto:${CLEARPATH.email}`} className="underline underline-offset-2">
-                  {CLEARPATH.email}
-                </a>
-                .
+                We couldn’t send your inquiry. Please try again in a moment.
               </p>
             )}
 

@@ -60,7 +60,7 @@ export default function CaseStudyTopBar() {
         </Link>
         {/* Same line the homepage header carries. Below `lg` the bar is only
             wide enough for the pill and the mark, so the footer takes it. */}
-        <ContactLine className="hidden lg:block" />
+        <ContactLine className="max-lg:hidden" />
       </div>
     </>
   );

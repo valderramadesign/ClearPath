@@ -1,38 +1,11 @@
 "use client";
 
-import { Fragment } from "react";
 import { useContact } from "@/components/ui/contact-modal";
-import { CLEARPATH } from "@/lib/content";
-
-/* Sampled from the dots in the logo mark. */
-const LOGO_DOT_BLUE = "#00B0D8";
 
 /**
- * Renders a string with its periods in the logo's blue, so the contact line
- * reads as an extension of the mark beside it rather than as loose text. Split
- * on the character rather than styling the whole string, because only the
- * periods carry the accent.
- */
-function DottedText({ children }: { children: string }) {
-  const parts = children.split(".");
-  return (
-    <>
-      {parts.map((part, index) => (
-        <Fragment key={index}>
-          {part}
-          {index < parts.length - 1 && (
-            <span style={{ color: `var(--logo-dot-blue, ${LOGO_DOT_BLUE})` }}>.</span>
-          )}
-        </Fragment>
-      ))}
-    </>
-  );
-}
-
-/**
- * The inquiry email as it sits beside the logo in the page chrome. It opens
- * the inquiry form rather than a mail client, so every route into contact
- * lands on the same form.
+ * The Contact Us pill as it sits beside the logo in the page chrome. It opens
+ * the inquiry form, so every route into contact lands on the same form. The
+ * pill matches the header's nav pills.
  */
 export default function ContactLine({ className }: { className?: string }) {
   const { openContact } = useContact();
@@ -41,11 +14,11 @@ export default function ContactLine({ className }: { className?: string }) {
       type="button"
       onClick={openContact}
       aria-haspopup="dialog"
-      className={`text-base font-normal font-sans leading-none text-white whitespace-nowrap pt-[3px] rounded-sm transition-opacity duration-150 hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70${
+      className={`theme-pill inline-flex items-center rounded-full border border-transparent bg-[#262626] px-4 pt-[10.28px] pb-[5.72px] text-base font-normal font-sans leading-none text-white whitespace-nowrap transition-colors duration-150 hover:border-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70${
         className ? ` ${className}` : ""
       }`}
     >
-      <DottedText>{CLEARPATH.email}</DottedText>
+      Contact Us
     </button>
   );
 }
