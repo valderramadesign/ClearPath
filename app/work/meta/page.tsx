@@ -1,8 +1,6 @@
 import type { ComponentType } from "react";
 import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
 import CaseStudyTopBar from "@/components/ui/case-study-top-bar";
-import NextCaseStudyTicker from "@/components/ui/next-case-study-ticker";
 import RevealSlider from "@/components/ui/reveal-slider";
 import LegacyScreenGrid, { type LegacyScreen } from "./legacy-screen-grid";
 import WorkflowDiagram from "./workflow-diagram";
@@ -50,14 +48,10 @@ import newFlowHowItWorks from "@/components/images/Monthly invoicing Images/Mi_N
 import newFlowConfirm from "@/components/images/Monthly invoicing Images/Mi_New_Flow_Screens/new-flow-2-confirm-information.png";
 import newFlowApproved from "@/components/images/Monthly invoicing Images/Mi_New_Flow_Screens/new-flow-3-approved.png";
 import metaHero from "@/components/images/Monthly invoicing Images/Hero/meta-hero.webp";
-import { PROJECTS_BY_ID, imageSrc, previewOf } from "@/lib/content";
+import { PROJECTS_BY_ID } from "@/lib/content";
 import { caseStudyMetadata } from "@/lib/seo";
 
 const project = PROJECTS_BY_ID.meta;
-const nextPayPal = PROJECTS_BY_ID.paypal;
-const nextPayPalPreview = previewOf(nextPayPal);
-const nextSolo = PROJECTS_BY_ID.solo;
-const nextSoloPreview = previewOf(nextSolo);
 
 export const metadata = caseStudyMetadata(
   project,
@@ -838,46 +832,6 @@ export default function MetaPage() {
           />
         </SupportingAppendix>
       </div>
-
-      {/* Next Case Studies */}
-      <section id="next-case-study-section" className="relative w-full bg-black overflow-hidden flex flex-col items-center justify-center pb-24 lg:pb-[200px] pt-16 lg:pt-[78px] mt-20 md:mt-[110px] lg:mt-[150px]">
-        <NextCaseStudyTicker color="#CEF252" dayColor="#3c4a0b" />
-
-        {/* Same 24px gutter the other case studies keep. At 437 + 437 the full
-            200px gap only fits from ~1122px up, so it steps down first. */}
-        <div className="relative flex flex-col items-center gap-12 px-5 lg:flex-row lg:justify-center lg:gap-[100px] lg:px-[24px] xl:gap-[200px]">
-          {/* PayPal */}
-          <Link href={nextPayPal.route} className="group flex w-full max-w-[437px] lg:w-[437px] flex-col gap-4 lg:gap-[27px] items-start">
-            <div className="aspect-[437/666] w-full lg:h-[666px] lg:w-[437px] relative lg:shrink-0 rounded-[30px] overflow-hidden">
-              <img
-                alt={nextPayPalPreview.alt}
-                src={imageSrc(nextPayPalPreview.image)}
-                className="absolute pointer-events-none object-cover h-full"
-                style={{ width: "270%", maxWidth: "none", left: "-88%" }}
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,64px)] lg:text-[64px] leading-[1.1] lg:leading-[72px] text-white tracking-[-0.64px]">
-              {nextPayPal.cardLabel}
-            </p>
-          </Link>
-
-          {/* Solo */}
-          <Link href={nextSolo.route} className="group flex w-full max-w-[437px] lg:w-[437px] lg:shrink-0 flex-col gap-4 lg:gap-[27px] items-start">
-            <div className="aspect-[437/666] w-full lg:h-[666px] lg:w-[438px] relative rounded-[30px] lg:shrink-0 overflow-hidden">
-              <Image
-                src={nextSoloPreview.image}
-                alt={nextSoloPreview.alt}
-                fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(max-width: 1024px) 100vw, 437px"
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,60px)] lg:text-[60px] leading-[1.1] lg:leading-[72px] text-white tracking-[-0.64px] whitespace-nowrap">
-              {nextSolo.cardLabel}
-            </p>
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }

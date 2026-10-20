@@ -280,15 +280,6 @@ html[data-theme="day"] .theme-site .bg-\[\#cef252\] {
   background-color: var(--day-chartreuse) !important;
 }
 
-/* Next Case Study ticker (next-case-study-ticker.tsx): its accent colour is
-   set via an inline style prop, which the class-based remaps above can't
-   reach. The component sets both variants as custom properties; day mode
-   just picks the darker one. */
-.next-case-study-ticker-text { color: var(--ticker-dark-color); }
-html[data-theme="day"] .theme-site .next-case-study-ticker-text {
-  color: var(--ticker-day-color) !important;
-}
-
 /* Logo-dot blue (contact-line.tsx), the Sutter concierge-panel teal
    (PatientPortal/page.tsx), and the DoorDash concept-panel red
    (DoorDashDashboard/page.tsx) read at 2.29:1, 2.56:1, and 3.31:1 on cream —

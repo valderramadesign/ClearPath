@@ -1,6 +1,4 @@
-import Link from "next/link";
 import Image, { type StaticImageData } from "next/image";
-import NextCaseStudyTicker from "@/components/ui/next-case-study-ticker";
 import CaseStudyTopBar from "@/components/ui/case-study-top-bar";
 import ScrollFade from "@/components/ui/scroll-fade";
 import DashboardAssembleReveal, {
@@ -38,15 +36,11 @@ import carousel08 from "@/components/images/Patient Portal/Carousel_08_teal.png"
 import carousel09 from "@/components/images/Patient Portal/Carousel_09.png";
 import carousel10 from "@/components/images/Patient Portal/Carousel_10.png";
 
-import { PROJECTS_BY_ID, imageSrc, previewOf } from "@/lib/content";
+import { PROJECTS_BY_ID } from "@/lib/content";
 import { withBasePath } from "@/lib/base-path";
 import { caseStudyMetadata } from "@/lib/seo";
 
 const project = PROJECTS_BY_ID.sutter;
-const nextPayPal = PROJECTS_BY_ID.paypal;
-const nextPayPalPreview = previewOf(nextPayPal);
-const nextMeta = PROJECTS_BY_ID.meta;
-const nextMetaPreview = previewOf(nextMeta);
 
 export const metadata = caseStudyMetadata(
   project,
@@ -365,54 +359,6 @@ export default function PatientPortalPage() {
           <ProcessDiagram steps={PROCESS_STEPS} accent={ACCENT} dayAccent="var(--sutter-accent)" />
         </SupportingAppendix>
       </div>
-
-      {/* Next Case Study section */}
-      <section
-        id="next-case-study-section"
-        className="relative w-full bg-black overflow-hidden pt-16 lg:pt-[78px] pb-24 lg:pb-[200px] mt-20 md:mt-[110px] lg:mt-[150px]"
-      >
-        <NextCaseStudyTicker color={ACCENT} dayColor="var(--sutter-accent)" />
-
-        {/* Both cards keep their aspect ratio and shrink together rather than
-            running under the 24px gutter: at their full 437 + 671 the 200px gap
-            only fits from ~1356px up, so the gap steps down first and the pair
-            scales after that. */}
-        <div className="relative flex flex-col lg:flex-row items-center lg:justify-center gap-12 lg:gap-[100px] xl:gap-[200px] px-5 lg:px-[24px]">
-          {/* PayPal card */}
-          <Link href={nextPayPal.route} className="group flex w-full min-w-0 max-w-[437px] lg:w-[437px] flex-col gap-4 lg:gap-[27px] items-start">
-            <div className="relative aspect-[437/666] w-full rounded-[30px] overflow-hidden">
-              <img
-                src={imageSrc(nextPayPalPreview.image)}
-                alt={nextPayPalPreview.alt}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,64px)] lg:text-[64px] text-white leading-[1.1] lg:leading-[72px] tracking-[-0.64px]">
-              {nextPayPal.cardLabel}
-            </p>
-          </Link>
-
-          {/* Meta card */}
-          <Link href={nextMeta.route} className="group flex w-full min-w-0 max-w-[671px] lg:w-[671px] flex-col gap-4 lg:gap-[27px] items-start">
-            <div
-              className="relative rounded-[30px] overflow-hidden w-full"
-              style={{ aspectRatio: "824 / 606" }}
-            >
-              <div className="absolute h-full top-0" style={{ left: "-3.69%", width: "130.67%" }}>
-                <Image
-                  src={nextMetaPreview.image}
-                  alt={nextMetaPreview.alt}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,64px)] lg:text-[64px] text-white leading-[1.1] lg:leading-[72px] tracking-[-0.64px] w-full">
-              {nextMeta.cardLabel}
-            </p>
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }

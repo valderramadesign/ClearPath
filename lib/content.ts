@@ -628,7 +628,7 @@ const MAX_HOMEPAGE_FLAGSHIPS = 4;
  * section by inheriting a stale flag.
  */
 const HOMEPAGE_LAYOUT = {
-  flagship: ["paypalde", "paypal", "meta", "solo"],
+  flagship: ["solo"],
   experiments: ["sutter", "doordash"],
 } as const satisfies Record<HomepageSection, readonly string[]>;
 

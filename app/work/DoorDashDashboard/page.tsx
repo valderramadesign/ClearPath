@@ -1,7 +1,5 @@
 import Image from "next/image";
 import closingImage from "@/components/images/DoorDash Dashboard/TableWithLaptopAndPhone.png";
-import Link from "next/link";
-import NextCaseStudyTicker from "@/components/ui/next-case-study-ticker";
 import CaseStudyTopBar from "@/components/ui/case-study-top-bar";
 import ScrollFade from "@/components/ui/scroll-fade";
 import DashboardAssembleReveal from "@/components/ui/dashboard-assemble-reveal";
@@ -26,15 +24,11 @@ import {
   CASE_STUDY_STACK_CLASS,
   cx,
 } from "@/components/case-study";
-import { PROJECTS_BY_ID, imageSrc, previewOf } from "@/lib/content";
+import { PROJECTS_BY_ID } from "@/lib/content";
 import { withBasePath } from "@/lib/base-path";
 import { caseStudyMetadata } from "@/lib/seo";
 
 const project = PROJECTS_BY_ID.doordash;
-const nextPayPal = PROJECTS_BY_ID.paypal;
-const nextPayPalPreview = previewOf(nextPayPal);
-const nextSolo = PROJECTS_BY_ID.solo;
-const nextSoloPreview = previewOf(nextSolo);
 
 export const metadata = caseStudyMetadata(
   project,
@@ -360,51 +354,6 @@ export default function DoorDashDashboardCaseStudy() {
           />
         </SupportingAppendix>
       </div>
-
-      {/* Next Case Studies */}
-      <section
-        id="next-case-study-section"
-        className="relative w-full overflow-hidden bg-black pb-24 lg:pb-[200px] pt-16 lg:pt-[78px] mt-20 md:mt-[110px] lg:mt-[150px]"
-      >
-        <NextCaseStudyTicker color={ACCENT} dayColor="var(--doordash-accent)" />
-
-        {/* Both cards keep their aspect ratio and shrink together rather than
-            running under the 24px gutter: at their full 437 + 437 the 200px gap
-            only fits from ~1122px up, so the gap steps down first and the pair
-            scales after that. */}
-        <div className="relative flex flex-col lg:flex-row items-center lg:justify-center gap-12 lg:gap-[100px] xl:gap-[200px] px-5 lg:px-[24px]">
-          {/* PayPal */}
-          <Link href={nextPayPal.route} className="group flex w-full min-w-0 max-w-[437px] lg:w-[437px] flex-col gap-4 lg:gap-[27px] items-start">
-            <div className="aspect-[437/666] w-full relative rounded-2xl lg:rounded-[30px] overflow-hidden">
-              <img
-                alt={nextPayPalPreview.alt}
-                src={imageSrc(nextPayPalPreview.image)}
-                className="absolute pointer-events-none object-cover h-full transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                style={{ width: "270%", maxWidth: "none", left: "-88%" }}
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,64px)] lg:text-[64px] leading-[1.1] lg:leading-[72px] text-white tracking-[-0.64px] transition-opacity duration-300 group-hover:opacity-70">
-              {nextPayPal.cardLabel}
-            </p>
-          </Link>
-
-          {/* Solo */}
-          <Link href={nextSolo.route} className="group flex w-full min-w-0 max-w-[437px] lg:w-[437px] flex-col gap-4 lg:gap-[27px]">
-            <div className="relative aspect-[437/666] w-full overflow-hidden rounded-2xl lg:rounded-[30px]">
-              <Image
-                src={nextSoloPreview.image}
-                alt={nextSoloPreview.alt}
-                fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(max-width: 1024px) 100vw, 437px"
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,60px)] lg:text-[60px] leading-[1.1] lg:leading-[72px] tracking-[-0.64px] text-white transition-opacity duration-300 group-hover:opacity-70 whitespace-nowrap">
-              {nextSolo.cardLabel}
-            </p>
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }

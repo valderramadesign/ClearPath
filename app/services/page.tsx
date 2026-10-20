@@ -35,8 +35,8 @@ export default function ServicesPage() {
         <PrimaryNav current="services" />
       </nav>
 
-      {/* Bottom padding is 35% of the old gap to the footer copy, less the footer's own 32px top padding. */}
-      <main className="@container px-5 pb-[clamp(4px,calc(4.9vh_-_21px),31px)] sm:px-6 lg:px-[24px]">
+      {/* 43px plus the footer's own 32px top padding keeps the site's 75px minimum gap above the footer. */}
+      <main className="@container px-5 pb-[43px] sm:px-6 lg:px-[24px]">
         <div className="relative isolate pt-[clamp(64px,14vh,140px)]">
           {/* Day and night images swap in CSS (globals.css), so only the active one downloads. */}
           <div

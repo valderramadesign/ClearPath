@@ -85,7 +85,7 @@ function PromiseSection() {
   return (
     <section
       aria-labelledby="promise-label"
-      className="relative z-10 bg-black border-t border-white/10 px-5 py-[clamp(72px,14vh,148px)] sm:px-6 lg:px-[24px]"
+      className="relative z-10 bg-black border-t border-white/10 px-5 py-[clamp(75px,14vh,148px)] sm:px-6 lg:px-[24px]"
     >
       <div className="@container grid gap-x-12 gap-y-6 @[760px]:grid-cols-[minmax(0,1fr)_minmax(0,2.2fr)]">
         <h2 id="promise-label" className={`${EYEBROW} pt-[10px]`}>

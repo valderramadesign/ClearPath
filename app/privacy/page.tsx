@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import Header, { PrimaryNav } from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 import ContactLine from "@/components/ui/contact-line";
 import Logo from "@/components/ui/logo";
 import ThemeToggle from "@/components/ui/theme-toggle";
@@ -60,21 +61,18 @@ const SECTIONS: { title: string; body: React.ReactNode; action?: React.ReactNode
 export default function PrivacyPage() {
   return (
     <div className="theme-site min-h-[100svh] bg-black text-white">
-      <header className="flex items-center justify-between px-5 pt-5 sm:px-6 sm:pt-6 lg:px-[24px] lg:pt-[24px]">
-        <Link
-          href="/"
-          className="theme-pill inline-flex items-center gap-2 rounded-full border border-transparent bg-[#262626] px-4 pt-[10.28px] pb-[5.72px] font-sans text-base leading-none text-white transition-colors duration-150 hover:border-white"
-        >
-          <ArrowLeft aria-hidden className="-mt-[4px] h-4 w-4" strokeWidth={1.75} />
-          Home
+      <div className="hidden lg:block p-[24px]">
+        <Header />
+      </div>
+      <header className="lg:hidden flex items-center justify-between px-5 py-5 sm:px-6 sm:pt-6">
+        <Link href="/" aria-label={`${CLEARPATH.name} home`}>
+          <Logo />
         </Link>
-        <div className="flex items-center gap-[12px]">
-          <ThemeToggle />
-          <Link href="/" aria-label={`${CLEARPATH.name} home`}>
-            <Logo />
-          </Link>
-        </div>
+        <ThemeToggle />
       </header>
+      <nav aria-label="Primary" className="lg:hidden flex items-center gap-2 px-5 sm:px-6">
+        <PrimaryNav />
+      </nav>
 
       <main className="mx-auto max-w-[760px] px-5 pt-[clamp(64px,14vh,140px)] pb-24 sm:px-6">
         <p className={EYEBROW}>{CLEARPATH.name}</p>
@@ -95,6 +93,7 @@ export default function PrivacyPage() {
           ))}
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

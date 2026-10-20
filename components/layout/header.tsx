@@ -52,6 +52,13 @@ export function PrimaryNav({
           Home
         </Link>
       )}
+      <Link
+        href="/services"
+        aria-current={current === "services" ? "page" : undefined}
+        className={panelPillClass(current === "services")}
+      >
+        Services
+      </Link>
       {onPanel ? (
         <button
           type="button"
@@ -67,13 +74,6 @@ export function PrimaryNav({
           {PANEL_LABELS.about}
         </Link>
       )}
-      <Link
-        href="/services"
-        aria-current={current === "services" ? "page" : undefined}
-        className={panelPillClass(current === "services")}
-      >
-        Services
-      </Link>
     </>
   );
 }
@@ -87,18 +87,18 @@ interface HeaderProps {
 export default function Header({ panel = null, onPanel, current }: HeaderProps) {
   return (
     <header className="flex items-center justify-between gap-6 w-full shrink-0">
-      <nav aria-label="Primary" className="flex items-center gap-[12px]">
-        <PrimaryNav panel={panel} onPanel={onPanel} current={current} />
-        <ThemeToggle />
-      </nav>
       <div className="flex items-center gap-[24px]">
         <Link href="/" aria-label="ClearPath Transformation home">
           <Logo />
         </Link>
-        {/* Hidden while a panel is open: the homepage is squeezed to a third
-            of the width, and the panel ends on the same call to action. */}
-        {!panel && <ContactLine />}
+        <nav aria-label="Primary" className="flex items-center gap-[12px]">
+          <PrimaryNav panel={panel} onPanel={onPanel} current={current} />
+          {/* Hidden while a panel is open: the homepage is squeezed to a third
+              of the width, and the panel ends on the same call to action. */}
+          {!panel && <ContactLine />}
+        </nav>
       </div>
+      <ThemeToggle />
     </header>
   );
 }

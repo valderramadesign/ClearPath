@@ -1,7 +1,5 @@
 import type { CSSProperties } from "react";
 import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
-import NextCaseStudyTicker from "@/components/ui/next-case-study-ticker";
 import CaseStudyTopBar from "@/components/ui/case-study-top-bar";
 import RevealSlider from "@/components/ui/reveal-slider";
 import Pi4Walkthrough from "@/components/ui/pi4-walkthrough";
@@ -51,15 +49,10 @@ import {
 import {
   PAYPAL_PRODUCT_IREV,
   PROJECTS_BY_ID,
-  previewOf,
 } from "@/lib/content";
 import { caseStudyMetadata } from "@/lib/seo";
 
 const project = PROJECTS_BY_ID.paypal;
-const nextMeta = PROJECTS_BY_ID.meta;
-const nextMetaPreview = previewOf(nextMeta);
-const nextSolo = PROJECTS_BY_ID.solo;
-const nextSoloPreview = previewOf(nextSolo);
 
 /* ── iRev ────────────────────────────────────────────────────────────────
    Each product's annual incremental revenue against its own preceding annual
@@ -1049,49 +1042,6 @@ export default function PayPal1CaseStudy() {
           </div>
         </SupportingAppendix>
       </div>
-
-      {/* Next Case Studies */}
-      <section id="next-case-study-section" className="relative w-full overflow-hidden bg-black pb-24 lg:pb-[200px] pt-12 lg:pt-[78px]">
-        <NextCaseStudyTicker color="#4d2d8d" />
-
-        {/* The pair is wider than most desktops once the 200px between
-            them is counted, and centring an overflowing row hides its left
-            edge. The gutter is held, and the space between the cards is
-            what gives way first. */}
-        <div className="relative flex flex-col lg:flex-row items-center lg:justify-center gap-12 px-5 lg:gap-[clamp(48px,calc(100vw-1156px),200px)] lg:px-[24px]">
-          {/* Meta */}
-          <Link href={nextMeta.route} className="group flex w-full min-w-0 max-w-[671px] flex-col gap-4 lg:w-[671px] lg:gap-[27px]">
-            <div className="relative aspect-[824/606] w-full overflow-hidden rounded-2xl lg:rounded-[30px]">
-              <Image
-                src={nextMetaPreview.image}
-                alt={nextMetaPreview.alt}
-                fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(max-width: 1024px) 100vw, 671px"
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,64px)] lg:text-[64px] leading-[1.1] lg:leading-[72px] tracking-[-0.64px] text-white transition-opacity duration-300 group-hover:opacity-70">
-              {nextMeta.cardLabel}
-            </p>
-          </Link>
-
-          {/* Solo */}
-          <Link href={nextSolo.route} className="group flex w-full min-w-0 max-w-[437px] flex-col gap-4 lg:w-[437px] lg:shrink-0 lg:gap-[27px]">
-            <div className="relative aspect-[437/666] w-full overflow-hidden rounded-2xl lg:rounded-[30px]">
-              <Image
-                src={nextSoloPreview.image}
-                alt={nextSoloPreview.alt}
-                fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(max-width: 1024px) 100vw, 437px"
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,60px)] lg:text-[60px] leading-[1.1] lg:leading-[72px] tracking-[-0.64px] text-white transition-opacity duration-300 group-hover:opacity-70 whitespace-nowrap">
-              {nextSolo.cardLabel}
-            </p>
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }

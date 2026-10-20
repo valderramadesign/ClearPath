@@ -1,7 +1,4 @@
 import type { ComponentType } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import NextCaseStudyTicker from "@/components/ui/next-case-study-ticker";
 import CaseStudyTopBar from "@/components/ui/case-study-top-bar";
 import {
   CaseStudyHeader,
@@ -13,7 +10,7 @@ import {
   CASE_STUDY_SUPPORTING_CLASS,
   cx,
 } from "@/components/case-study";
-import { PROJECTS_BY_ID, imageSrc, previewOf } from "@/lib/content";
+import { PROJECTS_BY_ID } from "@/lib/content";
 import {
   IconBankInCheckout,
   IconCheckoutUpgrade,
@@ -27,10 +24,6 @@ import { caseStudyMetadata } from "@/lib/seo";
 import TrustStory from "./trust-story";
 
 const project = PROJECTS_BY_ID.paypalde;
-const nextPayPal = PROJECTS_BY_ID.paypal;
-const nextPayPalPreview = previewOf(nextPayPal);
-const nextMeta = PROJECTS_BY_ID.meta;
-const nextMetaPreview = previewOf(nextMeta);
 
 export const metadata = caseStudyMetadata(
   project,
@@ -189,52 +182,6 @@ export default function PayPalDePage() {
           </div>
         </SupportingAppendix>
       </div>
-
-      <section
-        id="next-case-study-section"
-        className="relative w-full overflow-hidden bg-black pb-24 lg:pb-[200px] pt-12 lg:pt-[78px] mt-24 lg:mt-[200px]"
-      >
-        <NextCaseStudyTicker color="#00B0D8" />
-        {/* Both cards keep their aspect ratio and shrink together rather than
-            running under the 24px gutter: at their full 437 + 671 the 200px gap
-            only fits from ~1356px up, so the gap steps down first and the pair
-            scales after that. */}
-        <div className="relative flex flex-col lg:flex-row items-center lg:justify-center gap-12 lg:gap-[100px] xl:gap-[200px] px-5 lg:px-[24px]">
-          <Link
-            href={nextPayPal.route}
-            className="group flex w-full min-w-0 max-w-[437px] lg:w-[437px] flex-col gap-4 lg:gap-[27px] items-start"
-          >
-            <div className="aspect-[437/666] w-full relative rounded-[30px] overflow-hidden">
-              <img
-                alt={nextPayPalPreview.alt}
-                src={imageSrc(nextPayPalPreview.image)}
-                className="absolute pointer-events-none object-cover h-full"
-                style={{ width: "270%", maxWidth: "none", left: "-88%" }}
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,64px)] lg:text-[64px] leading-[1.1] lg:leading-[72px] text-white tracking-[-0.64px] transition-opacity duration-300 group-hover:opacity-70">
-              {nextPayPal.cardLabel}
-            </p>
-          </Link>
-          <Link
-            href={nextMeta.route}
-            className="group flex w-full min-w-0 max-w-[671px] lg:w-[671px] flex-col gap-4 lg:gap-[27px]"
-          >
-            <div className="relative aspect-[824/606] w-full overflow-hidden rounded-2xl lg:rounded-[30px]">
-              <Image
-                src={nextMetaPreview.image}
-                alt={nextMetaPreview.alt}
-                fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(max-width: 1024px) 100vw, 671px"
-              />
-            </div>
-            <p className="font-serif text-[clamp(36px,9vw,64px)] lg:text-[64px] leading-[1.1] lg:leading-[72px] tracking-[-0.64px] text-white transition-opacity duration-300 group-hover:opacity-70">
-              {nextMeta.cardLabel}
-            </p>
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }
