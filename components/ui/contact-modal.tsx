@@ -16,10 +16,10 @@ import { Check, X } from "lucide-react";
 import Link from "next/link";
 import { CLEARPATH } from "@/lib/content";
 
-/* FormSubmit relays the JSON post to the inbox in the path. The first post
-   sends that inbox an activation link, and nothing is delivered until it is
-   clicked. */
-const ENDPOINT = `https://formsubmit.co/ajax/${CLEARPATH.inquiryInbox}`;
+/* FormSubmit relays the JSON post to the inbox behind this alias, so the
+   address never ships in the page. Each new site address needs a one-time
+   activation from that inbox. */
+const ENDPOINT = "https://formsubmit.co/ajax/fadbf6174102de9dffffeeff419b21d3";
 
 /* A send this soon after the form opens is a bot: nobody fills four fields in
    under three seconds. It is shown as sent so the bot learns nothing. */

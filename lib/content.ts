@@ -758,8 +758,6 @@ export const CLEARPATH = {
   /** GitHub Pages project address. Replace, and drop basePath in next.config.ts, once ClearPath has its own domain. */
   url: "https://valderramadesign.github.io/ClearPath",
   email: "pattongranada@sent.com",
-  /** Main inbox for the inquiry form. It gets FormSubmit's activation link; `email` is copied on every inquiry. */
-  inquiryInbox: "valderramadesign@gmail.com",
   description:
     "ClearPath Transformation helps growing companies improve planning, reporting, and operations by redesigning business processes and automating repetitive work.",
   cta: "Discuss your process challenge",
