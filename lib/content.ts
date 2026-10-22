@@ -813,7 +813,7 @@ export const CLEARPATH = {
       {
         name: "Tim Valderrama",
         role: "Product design and development",
-        bio: "Tim is a lead product designer with more than 10 years of experience simplifying complex workflows in regulated environments. His work includes improving application conversion from 51% to 79% at PayPal and from 39% to 97% at Meta. He works from strategy through delivery and uses AI to accelerate research, prototyping, and code development.",
+        bio: "Tim is a lead product designer with 27 years in design and 9 specializing in UX. He simplifies complex workflows in regulated environments, increasing application conversion from 51% to 79% at PayPal and from 39% to 97% at Meta. From strategy through delivery, he combines deep design expertise with AI to accelerate research, prototyping, and development.",
       },
     ],
     together:
