@@ -5,6 +5,7 @@ import Footer from "@/components/layout/footer";
 import StickyHeader from "@/components/layout/sticky-header";
 import ContactCta from "@/components/ui/contact-cta";
 import Logo from "@/components/ui/logo";
+import ServiceProcess from "@/components/ui/service-process";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { CLEARPATH } from "@/lib/content";
 
@@ -53,6 +54,8 @@ export default function ServicesPage() {
           </p>
         </div>
 
+        <ServiceProcess className="mt-24" />
+
         <ol className="mt-16 border-b border-white/15 @[760px]:mt-24">
           {items.map((item, index) => (
             <li
@@ -82,8 +85,9 @@ export default function ServicesPage() {
             className="services-hero-bg pointer-events-none absolute top-0 -left-5 aspect-[3/2] w-[calc(100%+20px)] -scale-x-100 opacity-40 [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,#000_14%),linear-gradient(to_top,transparent,#000_14%)] sm:-left-6 sm:w-[calc(100%+24px)] lg:-left-[24px] lg:w-[62%] lg:opacity-100"
           />
 
-          <section className="relative grid items-center lg:grid-cols-2">
-            <div className="flex flex-col items-start gap-7 lg:col-start-2">
+          {/* Shares the service rows' columns, so the copy starts on the paragraphs' left edge. */}
+          <section className="relative grid items-center lg:grid-cols-[56px_minmax(0,0.9fr)_minmax(0,1.3fr)] lg:gap-x-10">
+            <div className="flex flex-col items-start gap-7 lg:col-start-3">
               <p className="max-w-[18ch] font-serif text-white text-[clamp(34px,5.2cqw,64px)] leading-[1] tracking-[-0.015em]">
                 {CLEARPATH.contact.headline}
               </p>

@@ -29,7 +29,7 @@ export default function LeftNav({ onHover }: LeftNavProps) {
   // Columns wrap to a stack when there is no room for both side by side.
   return (
     <nav aria-label="Selected work" className="flex flex-wrap items-start gap-x-12 gap-y-8 shrink-0">
-      {column("Case studies", HOMEPAGE_FLAGSHIPS)}
+      {column("Sample case study", HOMEPAGE_FLAGSHIPS)}
       {HOMEPAGE_EXPERIMENTS.length > 0 && column("Experiments", HOMEPAGE_EXPERIMENTS)}
     </nav>
   );

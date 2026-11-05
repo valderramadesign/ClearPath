@@ -12,7 +12,6 @@ import Logo from "@/components/ui/logo";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { CLEARPATH } from "@/lib/content";
 
-const EYEBROW = "text-white/60 text-[12px] uppercase tracking-[0.18em] font-sans";
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /** Panel share of the desktop width. Capped so the homepage keeps 480px, the
@@ -31,19 +30,6 @@ function useIsDesktop() {
     return () => query.removeEventListener("change", sync);
   }, []);
   return desktop;
-}
-
-function Expertise({ className = "" }: { className?: string }) {
-  return (
-    <ul
-      aria-label="Expertise"
-      className={`flex flex-wrap items-center gap-x-7 gap-y-2 ${EYEBROW} ${className}`}
-    >
-      {CLEARPATH.home.expertise.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  );
 }
 
 function Headline({ id, className, style }: { id: string; className: string; style?: React.CSSProperties }) {
@@ -76,29 +62,6 @@ function FadeIn({ children, delay, className }: { children: React.ReactNode; del
     >
       {children}
     </motion.div>
-  );
-}
-
-/** The brief's promise, set apart from the hero on a plain ground so the
-    longest sentence on the page never competes with the shader. */
-function PromiseSection() {
-  return (
-    <section
-      aria-labelledby="promise-label"
-      className="relative z-10 bg-black border-t border-white/10 px-5 py-[clamp(75px,14vh,148px)] sm:px-6 lg:px-[24px]"
-    >
-      <div className="@container grid gap-x-12 gap-y-6 @[760px]:grid-cols-[minmax(0,1fr)_minmax(0,2.2fr)]">
-        <h2 id="promise-label" className={`${EYEBROW} pt-[10px]`}>
-          How we work
-        </h2>
-        <div>
-          <p className="max-w-[28ch] font-serif text-white text-[clamp(30px,4.4cqw,54px)] leading-[1.06] tracking-[-0.015em]">
-            {CLEARPATH.home.promise}
-          </p>
-          <ContactCta className="mt-10" />
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -194,14 +157,14 @@ export default function HomeClient() {
           <div aria-hidden="true" className="home-hero-bg absolute inset-0" />
 
           {/* ── Desktop hero ── */}
-          <main className="@container relative z-10 hidden lg:flex flex-col min-h-screen px-[24px] pt-[63px] pb-[24px]">
+          <main className="@container relative z-10 hidden lg:flex flex-col min-h-screen px-[24px] pt-[63px] pb-[50px]">
             <div className="mt-[clamp(32px,calc(18vh_-_120px),140px)]">
               <LeftNav />
             </div>
 
             <div className="flex-1 min-h-[40px]" />
 
-            <section aria-labelledby="hero-title" className="pb-[14px]">
+            <section aria-labelledby="hero-title">
               {/* w-fit sizes to the headline; the copy's w-0 min-w-full fills that width without widening it. */}
               <div className="w-fit">
                 <Headline
@@ -216,14 +179,11 @@ export default function HomeClient() {
                   <ContactCta />
                 </FadeIn>
               </div>
-              <FadeIn delay={0.7}>
-                <Expertise className="mt-[30px] pt-[20px] border-t border-white/10" />
-              </FadeIn>
             </section>
           </main>
 
           {/* ── Mobile + tablet hero ── */}
-          <div className="lg:hidden relative z-10 flex min-h-[100svh] flex-col px-5 pt-[74px] pb-10 sm:px-6 sm:pt-[78px]">
+          <div className="lg:hidden relative z-10 flex min-h-[100svh] flex-col px-5 pt-[74px] pb-[50px] sm:px-6 sm:pt-[78px]">
             <nav aria-label="Primary" className="flex items-center gap-2">
               <PrimaryNav panel={panel} onPanel={togglePanel} />
             </nav>
@@ -247,14 +207,10 @@ export default function HomeClient() {
                   <ContactCta className="mt-8" />
                 </FadeIn>
               </div>
-              <FadeIn delay={0.7}>
-                <Expertise className="mt-9 pt-5 border-t border-white/10 gap-x-5" />
-              </FadeIn>
             </section>
           </div>
         </div>
 
-        <PromiseSection />
         <Footer />
       </div>
 

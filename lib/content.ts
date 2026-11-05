@@ -504,7 +504,7 @@ export const PROJECTS: Project[] = [
     caseStudyHeadline: "Turning Classroom Updates Into Live Parent Communication",
     company: "Ms. Sunshine",
     status: "Shipped MVP",
-    role: "Led discovery, design, and delivery of a working MVP in three weeks, turning manual daily reports into one connected workflow for teachers and parents.",
+    role: "Led discovery, design, and delivery of a working minimum viable product in three weeks, turning manual daily reports into one connected workflow for teachers and parents.",
     scope: {
       platforms: ["Mobile"],
     },
@@ -629,7 +629,7 @@ const MAX_HOMEPAGE_FLAGSHIPS = 4;
  */
 const HOMEPAGE_LAYOUT = {
   flagship: ["solo"],
-  experiments: ["sutter", "doordash"],
+  experiments: [],
 } as const satisfies Record<HomepageSection, readonly string[]>;
 
 function homepageSection(section: HomepageSection): Project[] {
@@ -769,19 +769,11 @@ export const CLEARPATH = {
     ],
     supporting:
       "We help growing companies reduce manual work across planning, reporting, and operations. From identifying the problem to implementing the solution, we make business improvement practical and measurable.",
-    promise:
-      "Bring us a business process that slows your team down. We’ll redesign it, automate the steps that can be automated, preserve human judgment where it matters, and measure the business impact.",
-    expertise: [
-      "Business process improvement",
-      "Planning",
-      "Operations",
-      "Reporting",
-      "Change management",
-    ],
   },
   services: {
     intro:
-      "We help you move from a recurring business problem to a working solution, with support throughout assessment, design, implementation, and ongoing improvement.",
+      "We manage projects from planning through implementation, coordinating teams, timelines, budgets, and risks to ensure successful delivery. Our structured approach keeps stakeholders aligned, projects on track, and solutions focused on delivering measurable business value.",
+    management: "Project managed by ClearPath from start to finish",
     items: [
       {
         title: "Transformation assessment",
@@ -808,12 +800,12 @@ export const CLEARPATH = {
       {
         name: "Patton Granada",
         role: "Business transformation",
-        bio: "Patton is a business transformation consultant with more than 30 years of experience in global process, technology, and change management initiatives. His recent work spans retail planning, allocation, digital product creation, and supply chain transformation for apparel and consumer brands, including AI system implementations. He leads assessment, cross-functional process design, program delivery, change management, and business readiness.",
+        bio: "Patton is a business transformation consultant with more than 30 years of experience leading global initiatives across process, technology, and change management. His work spans retail planning, allocation, digital product creation, and supply chain transformation for apparel and consumer brands, including AI system implementations. He leads assessments, cross-functional process design, program delivery, change management, and business readiness.",
       },
       {
         name: "Tim Valderrama",
         role: "Product design and development",
-        bio: "Tim is a lead product designer with 27 years in design and 9 specializing in UX. He simplifies complex workflows in regulated environments, increasing application conversion from 51% to 79% at PayPal and from 39% to 97% at Meta. From strategy through delivery, he combines deep design expertise with AI to accelerate research, prototyping, and development.",
+        bio: "Tim is a lead product designer with 27 years of design experience, including 9 years specializing in UX. His work focuses on simplifying complex workflows in regulated environments, including improving application conversion from 51% to 79% at PayPal and from 39% to 97% at Meta. He leads product strategy, research, prototyping, and development, using AI to accelerate each stage of delivery.",
       },
     ],
     together:

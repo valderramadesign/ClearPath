@@ -13,6 +13,7 @@ import {
   SupportingAppendix,
   CASE_STUDY_BODY_CLASS,
   CASE_STUDY_FOCUS_CLASS,
+  CASE_STUDY_HEADLINE_CLASS,
   CASE_STUDY_LABEL_TIGHT_CLASS,
   CASE_STUDY_METRIC_LABEL_CLASS,
   CASE_STUDY_STACK_CLASS,
@@ -42,7 +43,7 @@ const project = PROJECTS_BY_ID.solo;
 
 export const metadata = caseStudyMetadata(
   project,
-  "Turning a preschool's two-hour manual end-of-day report into one continuous flow — classroom activity to parent update to daily summary — as a working MVP built in three weeks and now in daily use.",
+  "Turning a preschool's two-hour manual end-of-day report into one continuous flow — classroom activity to parent update to daily summary — as a working minimum viable product built in three weeks and now in daily use.",
 );
 
 const leagueSpartan = "var(--font-league-spartan)";
@@ -178,12 +179,12 @@ const IMPACT: { label: string; value: string; note: string }[] = [
   {
     label: "Business Impact",
     value: `~${SOLO_ANNUAL_HOURS_SAVED} staff hours/year returned`,
-    note: `At ${SOLO_TIME_SAVED_BASIS.hoursPerDay} hours per workday across ${SOLO_TIME_SAVED_BASIS.workDays} days, the MVP could redirect approximately ${SOLO_ANNUAL_HOURS_SAVED} hours annually to classroom care and school operations.*`,
+    note: `At ${SOLO_TIME_SAVED_BASIS.hoursPerDay} hours per workday across ${SOLO_TIME_SAVED_BASIS.workDays} days, the minimum viable product could redirect approximately ${SOLO_ANNUAL_HOURS_SAVED} hours annually to classroom care and school operations.*`,
   },
 ];
 
 const IMPACT_FOOTNOTE =
-  "*Estimates are based on the head teacher's account of the previous workflow; post-MVP time has not yet been measured.";
+  "*Estimates are based on the head teacher's account of the previous workflow; time since the minimum viable product launched has not yet been measured.";
 
 /* How the three weeks actually ran — one click off the argument, in the
    same disclosure the other case studies use. */
@@ -220,7 +221,7 @@ const BEHIND_THE_WORK: { title: string; body: ReactNode }[] = [
   },
   {
     title: "Rapid Design and Build",
-    body: "Used an AI-assisted workflow across research, product definition, prototyping, and development, moving from early exploration to a working MVP.",
+    body: "Used an AI-assisted workflow across research, product definition, prototyping, and development, moving from early exploration to a working minimum viable product.",
   },
   {
     title: "Roles and Permissions",
@@ -232,15 +233,15 @@ const BEHIND_THE_WORK: { title: string; body: ReactNode }[] = [
   },
   {
     title: "Privacy and Safeguarding",
-    body: "Privacy rules came from the school and are enforced by the feed's boundaries: one child, their guardians, nothing else. Record retention and deletion were not defined in the MVP and remain open with the school.",
+    body: "Privacy rules came from the school and are enforced by the feed's boundaries: one child, their guardians, nothing else. Record retention and deletion were not defined in the minimum viable product and remain open with the school.",
   },
   {
     title: "Where the Work Went",
-    body: "The flow moves parent conversation into the head teacher's day: every like and comment notifies her. Against what it replaced — handwritten reports from each assistant teacher and her nightly rewrite of all of them — the school's position is that it removed far more work than it added. Neither side has been measured under the MVP.",
+    body: "The flow moves parent conversation into the head teacher's day: every like and comment notifies her. Against what it replaced — handwritten reports from each assistant teacher and her nightly rewrite of all of them — the school's position is that it removed far more work than it added. Neither side has been measured under the minimum viable product.",
   },
   {
     title: "Validation and Iteration",
-    body: "Reviewed concepts with the head teacher through the build, then refined the working product on her feedback. The MVP is in daily use at the school; it has not been through structured usability testing with a wider group of staff or parents.",
+    body: "Reviewed concepts with the head teacher through the build, then refined the working product on her feedback. The minimum viable product is in daily use at the school; it has not been through structured usability testing with a wider group of staff or parents.",
   },
 ];
 
@@ -252,7 +253,7 @@ const PROCESS_STEPS: ProcessDiagramProps["steps"] = {
   },
   define: {
     body: "I framed one principle, capture the day once and use it twice, within the school's privacy rules.",
-    ai: "Challenged assumptions from the competitive review and helped define MVP success",
+    ai: "Challenged assumptions from the competitive review and helped define minimum viable product success",
   },
   ideate: {
     body: "I weighed teacher, parent and checkout flows around roles and permissions.",
@@ -264,14 +265,14 @@ const PROCESS_STEPS: ProcessDiagramProps["steps"] = {
   },
   prototype: {
     body: "I chose a working build so the school could use it daily within three weeks.",
-    ai: "Figma MCP and Claude Code turned the design into a working MVP",
+    ai: "Figma MCP and Claude Code turned the design into a working minimum viable product",
   },
   test: {
     body: "I prioritized fixes with the head teacher; wider staff and parent testing remains open.",
     ai: "Organized her feedback and observed daily use",
   },
   implement: {
-    body: "I confirmed readiness with the head teacher and launched the MVP for daily use.",
+    body: "I confirmed readiness with the head teacher and launched the minimum viable product for daily use.",
     ai: "Applied approved fixes and extended QA checks",
   },
 };
@@ -285,20 +286,18 @@ export default function SoloPage() {
           movie across the full measure with the year the work is estimated
           to return feathered into its lower corner. */}
       <div className={cx(PAGE_PAD, "pt-10 lg:pt-[78px]")} style={{ fontFamily: leagueSpartan }}>
-        {/* The title breaks where the sense does — after "Into" — once the
-            column can hold that first line: 1254px is exactly where "Turning
-            Classroom Updates Into" starts to fit (it needs 1206px of the
-            1254 - 48 gutter). Below that it breaks after "Live" instead, so
-            no line is ever left holding a single word. */}
+        {/* The title breaks after "Into" once the column can hold that first
+            line: 1254px is exactly where "Turning Classroom Updates Into"
+            starts to fit (it needs 1206px of the 1254 - 48 gutter). Below that
+            the browser balances the lines, so none is left short. */}
         <CaseStudyHeader
           project={project}
+          titleClassName={cx(CASE_STUDY_HEADLINE_CLASS, "text-balance")}
           headline={
             <>
               Turning Classroom Updates Into
               <br className="hidden min-[1254px]:inline" />{" "}
-              Live
-              <br className="min-[1254px]:hidden" />{" "}
-              Parent Communication
+              Live Parent Communication
             </>
           }
         />
@@ -584,7 +583,7 @@ export default function SoloPage() {
         <SupportingAppendix
           id="behind-the-work"
           title="Behind the Work"
-          summary="How I moved from a manual workflow to a working MVP in three weeks"
+          summary="How I moved from a manual workflow to a working minimum viable product in three weeks"
         >
           {BEHIND_THE_WORK.map((step) => (
             <div key={step.title} className={CASE_STUDY_STACK_CLASS}>
