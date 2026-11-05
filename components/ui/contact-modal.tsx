@@ -16,18 +16,15 @@ import { Check, X } from "lucide-react";
 import Link from "next/link";
 import { CLEARPATH } from "@/lib/content";
 
-/* FormSubmit relays the JSON post to the inbox behind this alias, so the
-   address never ships in the page. Each new site address needs a one-time
-   activation from that inbox. */
-const ENDPOINT = "https://formsubmit.co/ajax/fadbf6174102de9dffffeeff419b21d3";
+/* Web3Forms relays the JSON post to the inbox the access key was made for, so
+   the address never ships in the page. The key is public by design: it can
+   only send to that inbox. */
+const ENDPOINT = "https://api.web3forms.com/submit";
+const ACCESS_KEY = "4f72490a-e14b-42f7-bfdf-f33dad9ab899";
 
 /* A send this soon after the form opens is a bot: nobody fills four fields in
    under three seconds. It is shown as sent so the bot learns nothing. */
 const MIN_FILL_MS = 3000;
-
-/* FormSubmit drops inquiries containing any of these. Kept to words no real
-   process inquiry would use, since a match is discarded without notice. */
-const SPAM_WORDS = "backlinks,guest post,casino,viagra,cialis,escort,porn";
 
 type Field = "name" | "email" | "company" | "challenge";
 type Values = Record<Field, string>;
@@ -137,23 +134,20 @@ function ContactModal({ onClose }: { onClose: () => void }) {
       return;
     }
 
-    const honeypot = new FormData(event.currentTarget).get("_honey");
+    const honeypot = new FormData(event.currentTarget).get("botcheck");
     setStatus("sending");
     try {
       const response = await fetch(ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
+          access_key: ACCESS_KEY,
           name: values.name.trim(),
           email: values.email.trim(),
           company: values.company.trim(),
           message: values.challenge.trim(),
-          _subject: `ClearPath inquiry from ${values.name.trim()}, ${values.company.trim()}`,
-          _replyto: values.email.trim(),
-          _cc: CLEARPATH.email,
-          _blacklist: SPAM_WORDS,
-          _template: "table",
-          _honey: honeypot ?? "",
+          subject: `ClearPath inquiry from ${values.name.trim()}, ${values.company.trim()}`,
+          botcheck: Boolean(honeypot),
         }),
       });
       const result = await response.json().catch(() => null);
@@ -351,7 +345,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
             {/* Bots fill every field they find; people never see this one. */}
             <input
               type="text"
-              name="_honey"
+              name="botcheck"
               tabIndex={-1}
               autoComplete="off"
               aria-hidden

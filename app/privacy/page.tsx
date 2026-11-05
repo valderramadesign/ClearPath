@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const EYEBROW = "text-white/60 text-[12px] uppercase tracking-[0.18em] font-sans";
-const UPDATED = "October 2026";
+const UPDATED = "November 2026";
 
 const SECTIONS: { title: string; body: React.ReactNode; action?: React.ReactNode }[] = [
   {
@@ -40,8 +40,8 @@ const SECTIONS: { title: string; body: React.ReactNode; action?: React.ReactNode
     title: "Who processes it",
     body: (
       <p>
-        The form is delivered by FormSubmit (formsubmit.co), which passes your inquiry to our email
-        inbox. FormSubmit handles the data under its own privacy policy. We keep inquiries in email
+        The form is delivered by Web3Forms (web3forms.com), which passes your inquiry to our email
+        inbox. Web3Forms handles the data under its own privacy policy. We keep inquiries in email
         for as long as we need them to reply and to keep a record of our conversation.
       </p>
     ),
