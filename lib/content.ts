@@ -800,6 +800,7 @@ export const CLEARPATH = {
       {
         name: "Patton Granada",
         role: "Business transformation",
+        linkedin: "https://www.linkedin.com/in/patton-granada-b113192/",
         bio: "Patton is a business transformation consultant with more than 30 years of experience leading global initiatives across process, technology, and change management. His work spans retail planning, allocation, digital product creation, and supply chain transformation for apparel and consumer brands, including AI system implementations. He leads assessments, cross-functional process design, program delivery, change management, and business readiness.",
       },
       {
